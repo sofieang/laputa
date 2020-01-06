@@ -1,0 +1,76 @@
+\documentclass{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section{Normal}
+
+\[
+P(k) = \frac{1} {\sigma \sqrt{2\pi}} \; \textrm{exp} \left({-\frac{(k - \mu)^2}{2\sigma^2}}\right)
+\]
+
+\begin{align*}
+\mu = & \\
+\sigma = & 
+\end{align*}
+
+\section{Poisson}
+
+\[
+P(k) = \frac{\lambda^k \; e^{-\lambda}}{k!}
+\]
+\begin{align*}
+\lambda = &
+\end{align*}
+
+
+\section{Zipf-Mandelbrot}
+
+\[
+P(k) = \frac{\kappa}{(k + q)^{s}}
+\]
+\begin{align*}
+\kappa = & \\
+q = & \\
+s = &
+\end{align*}
+
+
+\section{Yule-Simon}
+
+\[
+P(k) = \rho \; \textrm{B}(k, \rho + 1)
+\]
+\begin{align*}
+\rho = & 
+\end{align*}
+
+\section{Generalised Extreme Value}
+
+\[
+P(k) = \frac{1}{s}\left (\! 1 + \xi\frac{k - m}{s}\right)^{\! \! 1 / \xi} \!\! \textrm{exp} \left(\! -\left(\! 1 + \xi\frac{k - m}{s}\right)^{\! \! 1 / \xi}\right)
+\]
+
+\begin{align*}
+m = & \\ 
+s = & \\
+\alpha = &
+\end{align*}
+
+
+\section{Generalised Beta Prime}
+
+\[
+P(k) = \frac{p (k / q)^{\alpha p - 1} (1 + (k / q)^p)^{-(\alpha + \beta)}}{q \; \textrm{B}({\alpha, \beta})}
+\]
+\begin{align*}
+\alpha = & \\ 
+\beta = & \\
+p = & \\
+q = &
+\end{align*}
+
+\end{document}

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Probability Distributions</h1>
+
+<p>Probability distributions are used more or less everywhere in Laputa, and come in two kinds: distributions, which determine single values, and metadistributions, which determine entire probability distributions (most importantly, trust functions).</p>
+
+<h4>Distributions</h4>
+
+<p>Distributions are referenced by name to facilitate reuse. Clicking on any distribution control allows the selection of a distribution to govern the values of the property in question. From this menu, it is also possible to create new distributions, and make copies of existing ones. Distributions that have been created (i.e. not the default distributions) can also be edited.</p>
+
+<p>For editing and creating new distributions, the distribution dialog is used. This dialog contains an area where the distribution is displayed and can be changed, as well as sliders for parameters, and a pop-up menu to set the distribution's <i>type</i>:</p>
+
+<p><b>Point:</b> Always gives the same value, set by the slider or by clicking in the display.</p>
+
+<p><b>Interval:</b> Gives a value in the interval indicated, with any value in that interval being equally likely.</p>
+
+<p><b>Normal:</b> Gives a value randomized from a normal distribution. The mean and standard deviation are adjustable.</p>
+
+<p><b>Beta:</b> Gives a value randomized from a beta distribution. The parameters <i>alpha</i> and <i>beta</i> are adjustable.</p>
+
+<p><b>Freeform:</b> Allows the user to draw a distribution of her own.</p>
+
+<p>There are also buttons for editing distributions numerically, as well as for saving changes. Since distributions are name referenced, no two distributions can be saved with the same name.</p>
+
+<h4>Metadistributions</h4>
+
+<p>Metadistributions are distributions over distributions. Since a distribution, in itself, is such a high-dimensional object, Laputa uses a highly simplified approach to metadistributions to make them manageable. Essentially, all metadistributions are interval distributions. A distribution is generated from a metadistribution by rolling a random number in [0, 1]. The <i>Amount Distribution</i> determines how this value is rolled: setting it to an interval distribution [x, y] makes the random number rolled be picked uniformly from the interval [x, y], for instance.</p>
+
+<p>The random number rolled is then used to create a <i>mixture</i> of the distributions specified as 'One' and 'Zero'. Both of these must be of the same type, and the blending proceeds by creating a new distribution whose parameters have values that are weighted averages of the parameters of 'One' and 'Zero'. The weight of 'One', in this case, is the random number obtained from the Amount distribution, and the weight of 'Zero' is one minus this value.</p>
+
+<p>On the left-hand side, a selection of mixtures is visible, given the current settings. This is intended to give a feel for the kind of distributions producible by the metadistribution in question.</p>
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Inquirers</h1>
+
+<p>An inquirer is any agent in Laputa, except Nature. Thus an inquirer does not need to engage in inquiry, or for that matter communication, although it can do either or both of these. Inquirers, as created in a society, come in two variants: <i>concrete</i> inquirers, and <i>template</i> inquirers.</p>
+
+<p>A concrete inquirer has the properties she has, which are given in the Inquirer Inspector, and described below. A template inquirer also has an associated set of <a href="simulationparameters.htm">simulation parameters</a>, which determine the inquirer's properties in batch simulations. The template inquirers can thus be interpreted as standing for a certain <i>role</i> in a society, rather than a specific person.</p>
+
+<p>The concrete properties of an inquirer are accessed through the Inquirer Inspector, which is a floating window. When more than one inquirer is selected, the values shown are the averages (or in the case of Sources and Listeners, the totals) of the individual inquirers in the selection.</p>
+
+<p><b>Name:</b> An optional name for the inquirer. Does not affect anything except aesthetics.</p>
+
+<p><b>Sources:</b> The number of links going to this inquirer.
+
+<p><b>Listeners:</b> The number of links going from this inquirer.
+
+<p><b>Belief:</b> The current degree of belief the inquirer has in the sentence whose truth-value is investigated.</p>
+
+<p><b>Inquiry Chance:</b> The chance to engage in inquiry each time step.</p>
+
+<p><b>Inquiry Accuracy:</b> The chance to that inquiry gives the correct result (i.e. <i>p</i>) rather than its opposite (i.e. not-<i>p</i>).</p>
+
+<p><b>Inquiry Trust:</b> The trust function that describes how much the inquirer trusts the results of her own inquiry. Clicking on it allows the user to set it to any <a href="randomdistributions.htm">probability distribution</a>, although, internally, a trust function is always stored as a freeform distribution with a finite resolution. A check box allows switching the inquirer's update of trust in view of the results of inquiry on or off.</p>
+
+<p><b>In Statistics:</b> If off, the inquirer is not included when calculating a society's <a href="evalue.htm">E-value</a></p>
+
+<p><b>Is Template:</b> If on, this is a template inquirer rather than a concrete one. The associated <b>Parameters</b> button allows the user to edit the <a href="simulationparameters.htm">simulation parameters</a> of the inquirer. </p>
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

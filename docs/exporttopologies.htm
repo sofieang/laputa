@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Exporting Topologies</h1>
+
+<p>When running a batch simulation, Laputa can records a selection of the network topologies generated for further analysis. At the moment, the only format supported is <a href="http://vlado.fmf.uni-lj.si/pub/networks/pajek/">Pajek</a>.</p>
+
+<p>The exporter can write a network with weigted edges, or one which is unweighted, which means that all edges included will have weight one. Furthermore, a minimum listen chance can be set for which edges to include; this is useful if one wants to exclude "dead" links, i.e. ones that have very low listen chance and are thus almost never used anyway.</p>
+
+  <p>When exporting topologies generated in a <a href="batchsimulation.htm">batch simulation</a>, it is also possible to choose whether to export the networks as a folder of individual .net files, or as a Pajek .paj project file, which can contain all the networks in a single file.</p>
+  
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

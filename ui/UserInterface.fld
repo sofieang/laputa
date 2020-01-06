@@ -1,0 +1,3153 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0305
+header_name {.h}
+code_name {.cpp}
+class UserInterface {open
+} {
+  Function {make_windows()} {open return_type void
+  } {
+    Fl_Window societyWindow {
+      label Society open
+      xywh {510 199 978 759} type Double align 80 resizable
+      class SocietyWindow size_range {600 496 0 0} visible
+    } {
+      Fl_Menu_Bar {societyWindow->menuBar} {open
+        xywh {0 0 995 25} box THIN_UP_BOX
+        class Fl_Sys_Menu_Bar
+      } {
+        Submenu {societyWindow->menuFile} {
+          label File open
+          xywh {0 0 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label {New Society...}
+            callback {app->newSociety();}
+            xywh {0 0 30 20} shortcut 0x4006e labelfont 2
+          }
+          MenuItem {} {
+            label {Open Society...}
+            callback {app->openSociety();}
+            xywh {0 0 30 20} shortcut 0x4006f labelfont 2 divider
+          }
+          MenuItem {} {
+            label Save
+            callback {app->saveSociety();}
+            xywh {0 0 30 20} shortcut 0x40073 labelfont 2
+          }
+          MenuItem {} {
+            label {Save As...}
+            callback {app->saveSocietyAs();}
+            xywh {0 0 30 20} labelfont 2 divider
+          }
+          Submenu {} {
+            label {Export As} open
+            xywh {0 0 62 20} labelfont 2
+          } {
+            MenuItem {} {
+              label {Pajek...}
+              callback {societyWindow->showDialog(DIALOG_EXPORT_TOPOLOGY, 0);}
+              xywh {0 0 30 20} labelfont 2
+            }
+          }
+          MenuItem {} {
+            label Quit
+            callback {app->quit();}
+            xywh {0 0 30 20} shortcut 0x40071 labelfont 2
+          }
+        }
+        Submenu {societyWindow->menuEdit} {
+          label Edit open
+          xywh {0 0 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label Undo
+            callback {app->doUndo();}
+            xywh {0 0 30 20} shortcut 0x4007a labelfont 2
+          }
+          MenuItem {} {
+            label Redo
+            callback {app->doRedo();}
+            xywh {0 0 30 20} shortcut 0x40079 labelfont 2 divider
+          }
+          MenuItem {} {
+            label Cut
+            callback {societyWindow->view->doCutSelection();}
+            xywh {0 0 30 20} shortcut 0x40078 labelfont 2
+          }
+          MenuItem {} {
+            label Copy
+            callback {societyWindow->view->doCopySelection();}
+            xywh {0 0 30 20} shortcut 0x40063 labelfont 2
+          }
+          MenuItem {} {
+            label Paste
+            callback {societyWindow->view->doPaste();}
+            xywh {0 0 30 20} shortcut 0x40076 labelfont 2
+          }
+          MenuItem {} {
+            label Delete
+            callback {societyWindow->view->deleteSelectedInquirersAndLinks();}
+            xywh {0 0 30 20} labelfont 2 divider
+          }
+          MenuItem {} {
+            label {Select All}
+            callback {societyWindow->view->selectAll();}
+            xywh {0 0 30 20} shortcut 0x40061 labelfont 2
+          }
+          MenuItem {} {
+            label {Deselect All}
+            callback {societyWindow->view->deselectAll();}
+            xywh {10 10 30 20} shortcut 0x40064 labelfont 2
+          }
+        }
+        Submenu {societyWindow->menuSimulation} {
+          label Simulation open
+          xywh {0 0 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label {Interactive...}
+            callback {societyWindow->showDialog(DIALOG_SIMULATION);}
+            xywh {0 0 31 20} shortcut 0x40069 labelfont 2
+          }
+          MenuItem {} {
+            label {Batch...}
+            callback {societyWindow->showDialog(DIALOG_BATCH_SIMULATION, &app->curBatchSimulation);}
+            xywh {0 0 30 20} shortcut 0x40062 labelfont 2
+          }
+          MenuItem {} {
+            label {Multibatch...}
+            callback {societyWindow->showDialog(DIALOG_MULTIBATCH);}
+            xywh {10 10 30 20} shortcut 0x4006d labelfont 2
+          }
+        }
+        Submenu {societyWindow->menuRandomise} {
+          label Society open
+          xywh {0 0 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label {Generate Society...}
+            callback {societyWindow->showDialog(DIALOG_BATCH_SIMULATION_GENERATE, &app->curBatchSimulation);}
+            tooltip {Create a random society} xywh {0 0 31 20} labelfont 2
+          }
+          MenuItem {} {
+            label {Randomise Again}
+            callback {Society soc(&batchSimulationWindow->bs.setup[0], curSociety);
+soc.organise();
+*curSociety = soc;
+societyWindow->view->redraw();
+societyWindow->view->updateStatistics();}
+            tooltip {Randomise society based on the current parameters} xywh {0 0 30 20} shortcut 0x40072 labelfont 2
+          }
+        }
+        Submenu {societyWindow->menuWindow} {
+          label Window open
+          xywh {0 0 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label Society
+            callback {societyWindow->show();}
+            xywh {0 0 31 20} labelfont 2
+          }
+          MenuItem {} {
+            label {Inquirer Inspector}
+            callback {inquirerWindow->show();}
+            xywh {0 0 30 20} labelfont 2
+          }
+          MenuItem {} {
+            label {Link Inspector}
+            callback {linkWindow->show();}
+            xywh {10 10 30 20} labelfont 2
+          }
+        }
+        Submenu {societyWindow->menuHelp} {
+          label Help open
+          xywh {5 5 62 20} labelfont 2
+        } {
+          MenuItem {} {
+            label {About Laputa...}
+            callback {societyWindow->showDialog(DIALOG_ABOUT);}
+            xywh {5 5 30 20} labelfont 2
+          }
+          MenuItem {} {
+            label {Manual...}
+            callback {societyWindow->showDialog(DIALOG_MANUAL);}
+            xywh {5 5 30 20} labelfont 2
+          }
+          MenuItem {} {
+            label Tooltips
+            callback {app->toggleTooltips();}
+            tooltip {Turn on or off tooltips} xywh {0 0 31 20} type Toggle shortcut 0x40074 value 1 labelfont 2
+          }
+        }
+      }
+      Fl_Box {societyWindow->view} {
+        xywh {6 65 959 680} box DOWN_BOX color 7 resizable
+        code0 {\#include "UserInterfaceItems.h"}
+        class SocietyView
+      }
+      Fl_Pack {} {open
+        xywh {5 28 895 42} type HORIZONTAL
+      } {
+        Fl_Group {societyWindow->groupToolBar} {open
+          xywh {5 28 96 34} labeltype NO_LABEL
+        } {
+          Fl_Menu_Button {societyWindow->buttonSelect} {
+            callback {app->setTool(TOOL_SELECT);} open
+            tooltip {Inquirer and link selection tool. Right-click to open preferences menu.} xywh {69 29 32 32} box NO_BOX align 17 when 1
+            class ToolButton
+          } {
+            MenuItem {} {
+              label {Select Inquirers}
+              callback {app->toggleSelectionSetting(SELECT_INQUIRERS);}
+              xywh {0 0 100 20} type Toggle value 1 labelfont 2
+            }
+            MenuItem {} {
+              label {Select Internal Links}
+              callback {app->toggleSelectionSetting(SELECT_INTERNAL_LINKS);}
+              xywh {10 10 100 20} type Toggle value 1 labelfont 2
+            }
+            MenuItem {} {
+              label {Select External Links}
+              callback {app->toggleSelectionSetting(SELECT_EXTERNAL_LINKS);}
+              xywh {20 20 100 20} type Toggle value 1 labelfont 2
+            }
+          }
+          Fl_Menu_Button {societyWindow->buttonCreateLink} {
+            callback {app->setTool(TOOL_ADD_LINK);} open
+            tooltip {Link creation tool; draw between inquirers to link them. Right-click to open preferences menu.} xywh {37 29 32 32} box NO_BOX labeltype NO_LABEL align 16 when 1
+            class ToolButton
+          } {
+            MenuItem {} {
+              label {Set New Link Preferences...}
+              callback {societyWindow->showDialog(DIALOG_CREATE_LINK_PREFS);}
+              xywh {0 0 100 20} labelfont 2
+            }
+          }
+          Fl_Menu_Button {societyWindow->buttonCreateInquirer} {
+            callback {app->setTool(TOOL_ADD_INQUIRER);} open
+            tooltip {Inquirer creation tool. Right-click to open preferences menu.} xywh {5 29 32 32} box NO_BOX when 1
+            code0 {\#include "ToolButton.h"}
+            class ToolButton
+          } {
+            MenuItem {} {
+              label {Set New Inquirer Preferences...}
+              callback {societyWindow->showDialog(DIALOG_CREATE_INQUIRER_PREFS);}
+              xywh {0 0 100 20} labelfont 2
+            }
+          }
+        }
+        Fl_Group {} {open
+          xywh {105 28 795 41}
+        } {
+          Fl_Value_Output {societyWindow->outputNumInquirers} {
+            label Inquirers
+            tooltip {Number of inquirers in society} xywh {390 32 45 24} color 7 selection_color 7 labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Value_Output {societyWindow->outputNumLinks} {
+            label Links
+            tooltip {Number of links in society} xywh {485 32 50 24} color 7 labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Check_Button {} {
+            label {Show Inquirer Numbers}
+            callback {societyWindow->view->setShowInqNumbers(((Fl_Check_Button*)o)->value());
+societyWindow->view->redraw();}
+            tooltip {Toggle whether to show numbers of inquires, and not just their names} xywh {635 29 25 30} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Value_Input {societyWindow->inputZoom} {
+            label Zoom
+            callback {societyWindow->view->setZoom(o->value() / 100.0);}
+            tooltip {Zoom factor} xywh {165 32 35 24} labeltype ENGRAVED_LABEL labelfont 2 minimum 5 maximum 800 step 1 value 100
+          }
+          Fl_Box {} {
+            label {%}
+            xywh {193 31 30 26} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Button {societyWindow->buttonZoomIncrease} {
+            label {+}
+            callback {societyWindow->view->setZoomToDefault(1);}
+            tooltip {Zoom in} xywh {217 34 20 20} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Button {societyWindow->buttonZoomDecrease} {
+            label {-}
+            callback {societyWindow->view->setZoomToDefault(-1);}
+            tooltip {Zoom out} xywh {241 34 20 20} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Button {societyWindow->buttonZoomDefault} {
+            label {1:1}
+            callback {societyWindow->view->setZoomToDefault(0);}
+            tooltip {Zoom to 100%} xywh {265 34 20 20} labeltype ENGRAVED_LABEL labelsize 11
+          }
+          Fl_Button {societyWindow->buttonZoomToFit} {
+            label Fit
+            callback {societyWindow->view->setZoomToFit();}
+            tooltip {Zoom to fit society in view} xywh {290 34 21 20} labeltype ENGRAVED_LABEL labelsize 11
+          }
+          Fl_Button {societyWindow->buttonDegrees} {
+            label {Degrees...}
+            callback {curSociety->calculateDegrees();
+societyWindow->showDialog(DIALOG_DEGREE_DISTRIBUTION, curSociety->degrees);}
+            xywh {540 32 70 24} labeltype ENGRAVED_LABEL labelsize 12
+          }
+        }
+      }
+      Fl_Scrollbar {societyWindow->scrollbarHorizontal} {
+        callback {societyWindow->view->setMidpoint(o->value(), societyWindow->scrollbarVertical->value()); 
+societyWindow->view->redraw();}
+        xywh {5 745 960 20} type Horizontal maximum 16384 value 8192
+      }
+      Fl_Scrollbar {societyWindow->scrollbarVertical} {
+        callback {societyWindow->view->setMidpoint(societyWindow->scrollbarHorizontal->value(), o->value()); 
+societyWindow->view->redraw();}
+        xywh {965 65 20 680} maximum 16384 value 8192
+      }
+    }
+    Fl_Window inquirerWindow {
+      label Inquirer open
+      xywh {8 48 352 332} type Double labelfont 2 align 80 hide
+      class InquirerWindow
+    } {
+      Fl_Input {inquirerWindow->inputName} {
+        label Name
+        callback {inquirerWindow->setSelectedInquirerNames(((Fl_Input*)o)->value());}
+        tooltip {Name of inquirer (optional)} xywh {55 20 260 20} labeltype ENGRAVED_LABEL labelfont 2 textsize 12
+      }
+      Fl_Box {} {
+        label Inquiry
+        xywh {15 131 330 159} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Value_Slider {inquirerWindow->sliderBelief} {
+        label Belief
+        callback {inquirerWindow->setSelectedInquirerBeliefs(((Fl_Value_Slider*)o)->value());}
+        tooltip {Current degree of belief} xywh {55 80 235 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Value_Slider {inquirerWindow->sliderInquiryChance} {
+        label Chance
+        callback {inquirerWindow->setSelectedInquirerInquiryChances(((Fl_Value_Slider*)o)->value());}
+        tooltip {Chance of engaging in inquiry each time step} xywh {115 139 195 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Value_Slider {inquirerWindow->sliderVeracityChance} {
+        label Accuracy
+        callback {inquirerWindow->setSelectedInquirerInquiryAccuracies(((Fl_Value_Slider*)o)->value());}
+        tooltip {Chance of any result of inquiry being true} xywh {115 169 195 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {inquirerWindow->buttonSetParameters} {
+        label {Parameters...}
+        callback {inquirerWindow->showDialog(DIALOG_INQUIRER_PARAMETERS);}
+        tooltip {Set parameters for how to value the link's properties during batch simulations} xywh {235 305 110 20} labeltype ENGRAVED_LABEL
+      }
+      Fl_Box {} {
+        xywh {115 199 220 80} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {inquirerWindow->viewTrust} {
+        callback {inquirerWindow->showDialog(DIALOG_TRUSTFUNCTION, o);}
+        tooltip {Trust function for inquiry} xywh {117 201 216 76}
+        class TrustView
+      }
+      Fl_Box {} {
+        label Trust
+        xywh {25 205 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Check_Button {inquirerWindow->buttonUpdateTrust} {
+        label Update
+        callback {inquirerWindow->setSelectedInquirerUpdateInquiryTrust(((Fl_Check_Button*)o)->value());}
+        tooltip {Update trust function as inquiry results arrive} xywh {95 255 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {} {
+        label {@returnarrow}
+        callback {inquirerWindow->showDialog(DIALOG_SET_VALUES, inquirerWindow->sliderBelief);
+app->touchFile();}
+        xywh {295 80 20 20} labelfont 1
+      }
+      Fl_Button {} {
+        label {@returnarrow}
+        callback {inquirerWindow->showDialog(DIALOG_SET_VALUES, inquirerWindow->sliderInquiryChance);
+app->touchFile();}
+        xywh {315 139 20 20} labelfont 1
+      }
+      Fl_Button {} {
+        label {@returnarrow}
+        callback {inquirerWindow->showDialog(DIALOG_SET_VALUES, inquirerWindow->sliderVeracityChance);
+app->touchFile();}
+        xywh {315 169 20 20} labelfont 1
+      }
+      Fl_Check_Button {inquirerWindow->buttonIsTemplate} {
+        label Template
+        callback {inquirerWindow->setSelectedInquirerIsTemplate(((Fl_Check_Button*)o)->value());}
+        tooltip {Update trust function as information arrives along the link} xywh {210 305 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Check_Button {inquirerWindow->buttonIncludeInStatistics} {
+        label {In Statistics}
+        callback {inquirerWindow->setSelectedInquirerIncludeInStatistics(((Fl_Check_Button*)o)->value());}
+        tooltip {Include inquirer in statistics} xywh {15 305 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+      }
+      Fl_Value_Output {inquirerWindow->outputSources} {
+        label Sources
+        tooltip {Number of links to this inquirer / these inquirers} xywh {145 48 50 24} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Value_Output {inquirerWindow->outputListeners} {
+        label Listeners
+        tooltip {Number of links from this inquirer / these inquirers} xywh {265 48 50 24} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Button {} {
+        label {?}
+        callback {inquirerWindow->showDialog(DIALOG_MANUAL, "inquirers.htm");}
+        xywh {327 5 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window linkWindow {
+      label Link open
+      xywh {-32000 -32000 360 302} type Double labelfont 2 align 80 hide
+      class LinkWindow
+    } {
+      Fl_Value_Slider {linkWindow->sliderListenChance} {
+        label {Comm. Chance}
+        callback {linkWindow->setSelectedLinkListenChances(((Fl_Value_Slider*)o)->value());}
+        tooltip {Chance of communication occuring across this link each time step} xywh {120 20 180 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {linkWindow->buttonSetParameters} {
+        label {Parameters...}
+        callback {linkWindow->showDialog(DIALOG_LINK_PARAMETERS);
+app->touchFile();}
+        tooltip {Set parameters for how to value the link's properties during batch simulations} xywh {230 265 110 20} labeltype ENGRAVED_LABEL
+      }
+      Fl_Value_Slider {linkWindow->sliderThreshold} {
+        label {Cert. Threshold}
+        callback {linkWindow->setSelectedLinkThresholds(((Fl_Value_Slider*)o)->value());}
+        tooltip {Least (or for values < 0.5 highest) degree of belief required in order to say that p} xywh {120 50 180 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Box {} {
+        xywh {120 160 220 80} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {linkWindow->viewTrust} {
+        callback {linkWindow->showDialog(DIALOG_TRUSTFUNCTION, o);}
+        tooltip {Recipient's trust function for messages coming through this link} xywh {122 162 216 76}
+        class TrustView
+      }
+      Fl_Box {} {
+        label Trust
+        xywh {30 170 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Check_Button {linkWindow->buttonUpdateTrust} {
+        label Update
+        callback {linkWindow->setSelectedLinkUpdateTrust(((Fl_Check_Button*)o)->value());}
+        tooltip {Update trust function as information arrives along the link} xywh {100 215 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {} {
+        label {@returnarrow}
+        callback {linkWindow->showDialog(DIALOG_SET_VALUES, linkWindow->sliderListenChance);
+app->touchFile();}
+        xywh {305 20 20 20} labelfont 1
+      }
+      Fl_Button {} {
+        label {@returnarrow}
+        callback {linkWindow->showDialog(DIALOG_SET_VALUES, linkWindow->sliderThreshold);
+app->touchFile();}
+        xywh {305 50 20 20} labelfont 1
+      }
+      Fl_Group {} {open
+        xywh {120 79 220 71} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 7
+      } {
+        Fl_Round_Button {linkWindow->buttonEvidencePolicy[0]} {
+          label None
+          callback {linkWindow->setSelectedLinkNewEvidenceReq(NEW_EVIDENCE_NONE);}
+          tooltip {Can communicate without having received any new evidence} xywh {125 85 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {linkWindow->buttonEvidencePolicy[1]} {
+          label Inquiry
+          callback {linkWindow->setSelectedLinkNewEvidenceReq(NEW_EVIDENCE_INQUIRY);}
+          tooltip {Must have received a result from inquiry since last to communicate} xywh {125 105 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {linkWindow->buttonEvidencePolicy[2]} {
+          label Any
+          callback {linkWindow->setSelectedLinkNewEvidenceReq(NEW_EVIDENCE_ANY);}
+          tooltip {Must have received a result from inquiry or a message from someone else to communicate} xywh {125 125 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Box {} {
+        label {New Evidence}
+        xywh {30 85 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Box {} {
+        label Requirement
+        xywh {30 105 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Check_Button {linkWindow->buttonExcludePrior} {
+        label {as fulfilling}
+        callback {linkWindow->setSelectedLinkExcludePrior(((Fl_Check_Button*)o)->value());}
+        tooltip {Allow communication once based just on prior, i.e. before receiving new information} xywh {226 105 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+      }
+      Fl_Box {} {
+        label {Treat prior}
+        xywh {245 87 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Box {} {
+        label requirement
+        xywh {246 123 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Check_Button {linkWindow->buttonIsTemplate} {
+        label Template
+        callback {linkWindow->setSelectedLinkIsTemplate(((Fl_Check_Button*)o)->value());}
+        tooltip {Update trust function as information arrives along the link} xywh {205 265 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Box {} {
+        xywh {20 249 320 2} box THIN_DOWN_BOX
+      }
+      Fl_Button {} {
+        label {?}
+        callback {linkWindow->showDialog(DIALOG_MANUAL, "links.htm");}
+        xywh {335 5 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window simulationWindow {
+      label Simulation open
+      xywh {881 388 589 111} type Double box UP_BOX align 80 when 1
+      class SimulationWindow modal noborder visible
+    } {
+      Fl_Button {simulationWindow->buttonRun} {
+        label {@>}
+        callback {if(!Fl::has_idle(RunSimulation, app->getCurSimulation())) {
+	Fl::add_idle(RunSimulation, app->getCurSimulation());
+	simulationWindow->buttonPause->activate();
+	simulationWindow->buttonRun->deactivate();
+	simulationWindow->buttonStep->deactivate();
+}}
+        tooltip {Start running simulation} xywh {60 60 35 35} labelcolor 24
+      }
+      Fl_Button {simulationWindow->buttonStep} {
+        label {@|>}
+        callback {if(!Fl::has_idle(RunSimulation, app->getCurSimulation())) {
+	app->getCurSimulation()->step();
+	app->getCurSimulation()->setSimulationWindowFrom();
+}}
+        tooltip {Run simulation one step} xywh {20 60 35 35} labelcolor 24
+      }
+      Fl_Button {simulationWindow->buttonPause} {
+        label {@||}
+        callback {if(Fl::has_idle(RunSimulation, app->getCurSimulation())) {
+	Fl::remove_idle(RunSimulation, app->getCurSimulation());
+	simulationWindow->buttonPause->deactivate();
+	simulationWindow->buttonRun->activate();
+	simulationWindow->buttonStep->activate();
+
+}}
+        tooltip {Pause simulation} xywh {100 60 35 35} labelcolor 24 deactivate
+      }
+      Fl_Output {simulationWindow->outputTime} {
+        label time
+        tooltip {Current time step} xywh {45 25 75 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 textsize 12
+      }
+      Fl_Output {simulationWindow->outputEValue} {
+        label {e-value}
+        tooltip {Current E-value of configuration} xywh {155 25 80 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 textsize 12
+      }
+      Fl_Output {simulationWindow->outputEValueDelta} {
+        label {e-value ∆}
+        tooltip {Current E-value of configuration minus E-value at time step 0} xywh {245 25 80 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 textsize 12
+      }
+      Fl_Choice {simulationWindow->choiceLogLevel} {
+        label {Log:} open
+        xywh {240 70 100 25} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        MenuItem {} {
+          label None
+          callback {app->curSimulation.logLevel = LOG_NONE;
+app->curSimulation.setSimulationWindowFrom();}
+          xywh {0 0 30 20} labelfont 2
+        }
+        MenuItem {} {
+          label Summary
+          callback {app->curSimulation.logLevel = LOG_SUMMARY;
+app->curSimulation.setSimulationWindowFrom();}
+          xywh {10 10 30 20} labelfont 2
+        }
+        MenuItem {} {
+          label Standard
+          callback {app->curSimulation.logLevel = LOG_STANDARD;
+app->curSimulation.setSimulationWindowFrom();}
+          xywh {20 20 30 20} labelfont 2
+        }
+        MenuItem {} {
+          label Detailed
+          callback {app->curSimulation.logLevel = LOG_DETAILED;
+app->curSimulation.setSimulationWindowFrom();}
+          xywh {30 30 30 20} labelfont 2
+        }
+      }
+      Fl_Text_Display {simulationWindow->outputLog} {
+        xywh {5 110 580 245} box DOWN_BOX
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {simulationWindow->closeDialog(false);}
+        tooltip {Exit without applying changes made during evolution} xywh {385 70 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {simulationWindow->buttonRewind} {
+        label {@|<}
+        callback {if(Fl::has_idle(RunSimulation, app->getCurSimulation())) {
+	Fl::remove_idle(RunSimulation, app->getCurSimulation());
+	simulationWindow->buttonPause->deactivate();
+	simulationWindow->buttonRun->activate();
+	simulationWindow->buttonStep->activate();
+}
+*curSociety = *(simulationWindow->templateSoc);
+app->curSimulation.reset();
+app->curSimulation.setSimulationWindowFrom();
+simulationWindow->outputLog->buffer()->remove(0, simulationWindow->outputLog->buffer()->length() - 1);}
+        tooltip {Reset statistics variables and time to 0} xywh {140 60 35 35} labelcolor 24
+      }
+      Fl_Return_Button Apply {
+        label Apply
+        callback {simulationWindow->closeDialog(true);}
+        tooltip {Apply changes made during society evolution} xywh {480 70 90 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Output {simulationWindow->outputPolarisation} {
+        label polarisation
+        tooltip {Current E-value of configuration} xywh {360 25 80 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 textsize 12
+      }
+      Fl_Output {simulationWindow->outputPolarisationDelta} {
+        label {polarisation ∆}
+        tooltip {Current E-value of configuration minus E-value at time step 0} xywh {450 25 80 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 textsize 12
+      }
+      Fl_Button {} {
+        label {?}
+        callback {app->df.showDialog(DIALOG_MANUAL, "simulation.htm");}
+        xywh {549 27 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window distributionWindow {
+      label Distribution
+      xywh {604 105 810 656} type Double box UP_BOX align 80
+      class DistributionWindow modal noborder visible
+    } {
+      Fl_Box {} {
+        xywh {20 44 772 260} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Return_Button {} {
+        label OK
+        callback {distributionWindow->closeDialog(true);}
+        tooltip {Exit and save changes} xywh {705 610 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {distributionWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {610 610 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {distributionWindow->view} {
+        xywh {22 46 768 256}
+        class DistributionViewEditable
+      }
+      Fl_Box {distributionWindow->boxLabel[0]} {
+        label 0
+        xywh {20 305 60 20} align 20
+      }
+      Fl_Box {distributionWindow->boxLabel[1]} {
+        label 0
+        xywh {182 305 60 20} align 16
+      }
+      Fl_Box {distributionWindow->boxLabel[2]} {
+        label 0
+        xywh {376 305 60 20} align 16
+      }
+      Fl_Box {distributionWindow->boxLabel[3]} {
+        label 0
+        xywh {568 305 60 20} align 16
+      }
+      Fl_Box {distributionWindow->boxLabel[4]} {
+        label 0
+        xywh {732 305 60 20} align 24
+      }
+      Fl_Choice {distributionWindow->choiceFilter} {
+        label Show open
+        xywh {573 20 180 20} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        MenuItem {} {
+          label {Combined Distribution}
+          callback {distributionWindow->view->setFilter(DISTR_ALL);
+distributionWindow->view->redraw();}
+          xywh {0 0 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {Point Aspect}
+          callback {distributionWindow->view->setFilter(DISTR_POINT);
+distributionWindow->view->redraw();}
+          xywh {0 0 100 20} labelfont 2
+        }
+        MenuItem {} {
+          label {Interval Aspect}
+          callback {distributionWindow->view->setFilter(DISTR_INTERVAL);
+distributionWindow->view->redraw();}
+          xywh {10 10 100 20} labelfont 2
+        }
+        MenuItem {} {
+          label {Normal Aspect}
+          callback {distributionWindow->view->setFilter(DISTR_NORMAL);
+distributionWindow->view->redraw();}
+          xywh {20 20 100 20} labelfont 2
+        }
+        MenuItem {} {
+          label {Beta Aspect}
+          callback {distributionWindow->view->setFilter(DISTR_BETA);
+distributionWindow->view->redraw();}
+          xywh {30 30 100 20} labelfont 2
+        }
+        MenuItem {} {
+          label {Freeform Aspect}
+          callback {distributionWindow->view->setFilter(DISTR_FREEFORM);
+distributionWindow->view->redraw();}
+          xywh {40 40 100 20} labelfont 2
+        }
+      }
+      Fl_Button {distributionWindow->buttonSave} {
+        label {Save...}
+        callback {distributionWindow->saveDistribution();}
+        tooltip {Save this distribution under a new name} xywh {510 610 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {distributionWindow->buttonLoad} {
+        label {Load...}
+        callback {distributionWindow->loadDistribution();}
+        tooltip {Delete this distribution} xywh {415 610 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {} {
+        label {Probability Distribution}
+        xywh {20 23 170 22} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Group {} {
+        label {Point Distribution Aspect} open
+        xywh {20 350 375 65} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Value_Slider {distributionWindow->sliderPtValue} {
+          label Value
+          callback {distributionWindow->view->curDistribution.dPt.value = (o->value() - distributionWindow->view->curDistribution.min) / 
+	(distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min);
+distributionWindow->view->redraw();}
+          xywh {75 385 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderPtValue);}
+          xywh {365 385 20 20} labelfont 1
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderWeight[DISTR_POINT]);}
+          xywh {365 360 20 20} labelfont 1
+        }
+        Fl_Value_Slider {distributionWindow->sliderWeight[DISTR_POINT]} {
+          label Weight
+          callback {distributionWindow->view->curDistribution.setWeight(DISTR_POINT, o->value());
+distributionWindow->view->redraw();
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) 
+	distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);}
+          xywh {75 360 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+      }
+      Fl_Group {} {
+        label {Interval Distribution Aspect} open
+        xywh {415 350 375 90} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Value_Slider {distributionWindow->sliderIntLower} {
+          label Lower
+          callback {if(o->value() < distributionWindow->sliderIntUpper->value())distributionWindow->view->curDistribution.dInt.lower = (o->value() - distributionWindow->view->curDistribution.min) / (distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min);
+else o->value(distributionWindow->sliderIntUpper->value() - 0.001);
+o->redraw();
+distributionWindow->view->redraw();}
+          xywh {470 385 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderIntLower);}
+          xywh {760 385 20 20} labelfont 1
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderWeight[DISTR_INTERVAL]);}
+          xywh {760 360 20 20} labelfont 1
+        }
+        Fl_Value_Slider {distributionWindow->sliderWeight[DISTR_INTERVAL]} {
+          label Weight
+          callback {distributionWindow->view->curDistribution.setWeight(DISTR_INTERVAL, o->value());
+distributionWindow->view->redraw();
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) 
+	distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);}
+          xywh {470 360 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Value_Slider {distributionWindow->sliderIntUpper} {
+          label Upper
+          callback {if(o->value() > distributionWindow->sliderIntLower->value())distributionWindow->view->curDistribution.dInt.upper = (o->value() - distributionWindow->view->curDistribution.min) / (distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min);
+else o->value(distributionWindow->sliderIntLower->value() + 0.001);
+o->redraw();
+distributionWindow->view->redraw();}
+          xywh {470 410 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderIntUpper);}
+          xywh {760 410 20 20} labelfont 1
+        }
+      }
+      Fl_Group {} {
+        label {Truncated Normal Distribution Aspect} open
+        xywh {20 440 375 90} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Value_Slider {distributionWindow->sliderNrmMidpt} {
+          label Mean
+          callback {distributionWindow->view->curDistribution.dNrm.midpt = (o->value() - distributionWindow->view->curDistribution.min) / 
+	(distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min);
+
+distributionWindow->view->redraw();}
+          xywh {75 475 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderNrmMidpt);}
+          xywh {365 475 20 20} labelfont 1
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderWeight[DISTR_POINT]);}
+          xywh {365 450 20 20} labelfont 1
+        }
+        Fl_Value_Slider {distributionWindow->sliderWeight[DISTR_NORMAL]} {
+          label Weight
+          callback {distributionWindow->view->curDistribution.setWeight(DISTR_NORMAL, o->value());
+distributionWindow->view->redraw();
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) 
+	distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);}
+          xywh {75 450 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001
+        }
+        Fl_Value_Slider {distributionWindow->sliderNrmStddev} {
+          label StdDev
+          callback {distributionWindow->view->curDistribution.dNrm.stddev = o->value() / 
+	(distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min);
+distributionWindow->view->redraw();}
+          xywh {75 500 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 minimum 0.001 maximum 3 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderNrmStddev);}
+          xywh {365 500 20 20} labelfont 1
+        }
+      }
+      Fl_Group {} {
+        label {Beta Distribution Aspect} open
+        xywh {415 466 375 90} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Value_Slider {distributionWindow->sliderBtAlpha} {
+          label Alpha
+          callback {if(distributionWindow->buttonAlphaBeta->value()) distributionWindow->view->curDistribution.dBt.alpha = o->value();
+else distributionWindow->setBetaDistributionFromMean((o->value() - distributionWindow->view->curDistribution.min) / (distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min));
+distributionWindow->view->redraw();}
+          xywh {470 501 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 minimum 0.001 maximum 10 step 0.001 value 1
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderBtAlpha);}
+          xywh {760 501 20 20} labelfont 1
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderWeight[DISTR_BETA]);}
+          xywh {760 476 20 20} labelfont 1
+        }
+        Fl_Value_Slider {distributionWindow->sliderWeight[DISTR_BETA]} {
+          label Weight
+          callback {distributionWindow->view->curDistribution.setWeight(DISTR_BETA, o->value());
+distributionWindow->view->redraw();
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) 
+	distributionWindow->sliderWeight[i]->value(distributionWindow->view->getDistribution()->weights[i]);}
+          xywh {470 476 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Value_Slider {distributionWindow->sliderBtBeta} {
+          label Beta
+          callback {if(distributionWindow->buttonAlphaBeta->value()) distributionWindow->view->curDistribution.dBt.beta = o->value();
+else distributionWindow->setBetaDistributionFromDev((o->value() - distributionWindow->view->curDistribution.min) / (distributionWindow->view->curDistribution.max - distributionWindow->view->curDistribution.min));
+distributionWindow->view->redraw();}
+          xywh {470 526 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 minimum 0.001 maximum 10 step 0.001 value 0.01
+        }
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderBtBeta);}
+          xywh {760 526 20 20} labelfont 1
+        }
+      }
+      Fl_Group {} {
+        label {Freeform Distribution Aspect} open
+        xywh {20 555 375 70} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Button {} {
+          label {@returnarrow}
+          callback {distributionWindow->showDialog(DIALOG_SET_VALUES, distributionWindow->sliderWeight[DISTR_FREEFORM]);}
+          xywh {365 565 20 20} labelfont 1
+        }
+        Fl_Value_Slider {distributionWindow->sliderWeight[DISTR_FREEFORM]} {
+          label Weight
+          callback {distributionWindow->view->curDistribution.setWeight(DISTR_FREEFORM, o->value());
+distributionWindow->view->redraw();
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) 
+	distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);}
+          xywh {75 565 285 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 4 step 0.001 value 0.01
+        }
+        Fl_Button {distributionWindow->buttonValues} {
+          label {Set Values...}
+          callback {distributionWindow->showDialog(DIALOG_DISTRIBUTION_FREEFORM_VALUES, distributionWindow->view->getDistribution());
+distributionWindow->view->curDistribution.dFf.changed();}
+          tooltip {Set parameters of the simulation numerically} xywh {140 590 100 25} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {} {
+          label {@<-}
+          callback {distributionWindow->view->getDistribution()->dFf.nudge(-1);
+distributionWindow->view->redraw();
+distributionWindow->view->curDistribution.dFf.changed();}
+          tooltip {Set parameters of the simulation numerically} xywh {30 590 25 25} labelcolor 16
+        }
+        Fl_Button {} {
+          label {@->}
+          callback {distributionWindow->view->curDistribution.dFf.nudge(1);
+distributionWindow->view->redraw();
+distributionWindow->view->curDistribution.dFf.changed();}
+          tooltip {Set parameters of the simulation numerically} xywh {60 590 25 25} labelcolor 16
+        }
+        Fl_Button {} {
+          label Clear
+          callback {distributionWindow->view->curDistribution.dFf.clear();
+distributionWindow->view->redraw();
+distributionWindow->view->curDistribution.dFf.changed();}
+          tooltip {Set parameters of the simulation numerically} xywh {90 590 45 25} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {} {
+          label {Set To Expression...}
+          callback {distributionWindow->showDialog(DIALOG_EXPRESSION, distributionWindow->view->getDistribution());
+distributionWindow->view->curDistribution.dFf.changed();}
+          tooltip {Set parameters of the simulation numerically} xywh {245 590 140 25} labeltype ENGRAVED_LABEL
+        }
+      }
+      Fl_Spinner {distributionWindow->inputResolution} {
+        label Resolution
+        callback {distributionWindow->view->curDistribution.setResolution(o->value() + 1);
+distributionWindow->view->redraw();}
+        xywh {710 568 75 24} labeltype ENGRAVED_LABEL labelfont 2 minimum 16 maximum 768 step 16 value 64
+      }
+      Fl_Button {} {
+        label {@>}
+        callback {distributionWindow->view->setFilter(DISTR_POINT);
+distributionWindow->view->curDistribution.setWeight(DISTR_POINT, 1.0);
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);
+distributionWindow->choiceFilter->value(1);}
+        xywh {175 332 20 19} box NO_BOX down_box DOWN_BOX labeltype EMBOSSED_LABEL labelsize 10 labelcolor 8
+      }
+      Fl_Button {} {
+        label {@>}
+        callback {distributionWindow->view->setFilter(DISTR_INTERVAL);
+distributionWindow->view->curDistribution.setWeight(DISTR_INTERVAL, 1.0);
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);
+distributionWindow->choiceFilter->value(2);}
+        xywh {583 332 20 19} box NO_BOX down_box DOWN_BOX labeltype EMBOSSED_LABEL labelsize 10 labelcolor 8
+      }
+      Fl_Button {} {
+        label {@>}
+        callback {distributionWindow->view->setFilter(DISTR_NORMAL);
+distributionWindow->view->curDistribution.setWeight(DISTR_NORMAL, 1.0);
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);
+distributionWindow->choiceFilter->value(3);}
+        xywh {255 422 20 19} box NO_BOX down_box DOWN_BOX labeltype EMBOSSED_LABEL labelsize 10 labelcolor 8
+      }
+      Fl_Button {} {
+        label {@>}
+        callback {distributionWindow->view->setFilter(DISTR_BETA);
+distributionWindow->view->curDistribution.setWeight(DISTR_BETA, 1.0);
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);
+distributionWindow->choiceFilter->value(4);}
+        xywh {567 448 20 19} box NO_BOX down_box DOWN_BOX labeltype EMBOSSED_LABEL labelsize 10 labelcolor 8
+      }
+      Fl_Button {} {
+        label {@>}
+        callback {distributionWindow->view->setFilter(DISTR_FREEFORM);
+distributionWindow->view->curDistribution.setWeight(DISTR_FREEFORM, 1.0);
+for(int i = 0; i < N_DISTRIBUTION_TYPES; ++i) distributionWindow->sliderWeight[i]->value(distributionWindow->view->curDistribution.weights[i]);
+distributionWindow->choiceFilter->value(5);}
+        xywh {199 537 20 19} box NO_BOX down_box DOWN_BOX labeltype EMBOSSED_LABEL labelsize 10 labelcolor 8
+      }
+      Fl_Light_Button {distributionWindow->buttonAlphaBeta} {
+        label {Alpha/Beta}
+        callback {distributionWindow->setBetaDistributionInterface(0);}
+        xywh {705 449 85 18} box THIN_UP_BOX down_box THIN_DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2 labelsize 12
+      }
+      Fl_Light_Button {distributionWindow->buttonMeanDev} {
+        label {Mean/Dev}
+        callback {distributionWindow->setBetaDistributionInterface(1);}
+        xywh {620 449 85 18} box THIN_UP_BOX down_box THIN_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 labelsize 12
+      }
+      Fl_Button {} {
+        label {?}
+        callback {distributionWindow->showDialog(DIALOG_MANUAL, "randomdistributions.htm");}
+        xywh {780 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window createInquirerPrefsWindow {
+      label {Inquirer Creation Preferences} open
+      xywh {818 228 452 266} type Double box UP_BOX align 80
+      class CreateInquirerPrefsWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {createInquirerPrefsWindow->closeDialog(true);}
+        tooltip {Save and exit} xywh {355 220 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {createInquirerPrefsWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {280 220 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Check_Button {createInquirerPrefsWindow->buttonIncludeInStatistics} {
+        label {Get Statistics}
+        callback {app->workingSetup.includeInStatistics = ((Fl_Check_Button*)o)->value();}
+        tooltip {Include inquirer in statistics} xywh {20 200 20 25} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+      }
+      Fl_Box {} {
+        label {Starting Belief }
+        xywh {20 31 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createInquirerPrefsWindow->viewBelief} {
+        callback {createInquirerPrefsWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Degree of belief distribution} xywh {22 33 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label {Inquiry Accuracy}
+        xywh {235 32 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createInquirerPrefsWindow->viewInquiryAccuracy} {
+        callback {createInquirerPrefsWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Inquiry accuracy chance distribution} xywh {237 34 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label {Inquiry Trust}
+        xywh {235 122 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createInquirerPrefsWindow->viewInquiryTrust} {
+        callback {createInquirerPrefsWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+        tooltip {Inquiry trust function metadistribution} xywh {237 124 192 64}
+        class MetaDistributionView
+      }
+      Fl_Box {} {
+        label {Inquiry Chance}
+        xywh {20 122 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createInquirerPrefsWindow->viewInquiryChance} {
+        callback {createInquirerPrefsWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Inquiry chance distribution} xywh {22 124 192 64}
+        class DistributionView
+      }
+      Fl_Check_Button {createInquirerPrefsWindow->buttonUpdateInquiryTrust} {
+        label {Update Inquiry Trust}
+        callback {app->workingSetup.updateInquiryTrust = ((Fl_Check_Button*)o)->value();}
+        tooltip {Update inquirer's inquiry trust function when getting results from inquiry} xywh {20 220 20 25} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+      }
+    }
+    Fl_Window createLinkPrefsWindow {
+      label {Linking Preferences} open
+      xywh {484 547 448 249} type Double box UP_BOX align 80
+      class CreateLinkPrefsWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {createLinkPrefsWindow->closeDialog(true);}
+        xywh {360 210 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {createLinkPrefsWindow->closeDialog(false);}
+        xywh {280 210 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {} {
+        label {Comunication Chance }
+        xywh {20 27 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createLinkPrefsWindow->viewListenChance} {
+        callback {createLinkPrefsWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Communication chance distribution} xywh {22 29 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label Threshold
+        xywh {235 27 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createLinkPrefsWindow->viewThreshold} {
+        callback {createLinkPrefsWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of communication belief threshold} xywh {237 29 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label Trust
+        xywh {20 121 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {createLinkPrefsWindow->viewTrust} {
+        callback {createLinkPrefsWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+        tooltip {Trust function metadistribution} xywh {22 123 192 64}
+        class MetaDistributionView
+      }
+      Fl_Check_Button {createLinkPrefsWindow->buttonUpdateTrust} {
+        label Update
+        callback {app->workingSetup.updateTrust = ((Fl_Check_Button*)o)->value();}
+        tooltip {Update trust function when link is used} xywh {200 103 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Group {} {
+        label {New Evidence Requirement} open
+        xywh {235 123 195 68} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+      } {
+        Fl_Round_Button {createLinkPrefsWindow->buttonEvidencePolicy[0]} {
+          label None
+          callback {app->workingSetup.evidencePolicy = NEW_EVIDENCE_NONE;}
+          tooltip {Can communicate without having received any new evidence} xywh {240 127 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {createLinkPrefsWindow->buttonEvidencePolicy[1]} {
+          label Inquiry
+          callback {app->workingSetup.evidencePolicy = NEW_EVIDENCE_INQUIRY;}
+          tooltip {Must have received a result from inquiry since last to communicate} xywh {240 147 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {createLinkPrefsWindow->buttonEvidencePolicy[2]} {
+          label Any
+          callback {app->workingSetup.evidencePolicy = NEW_EVIDENCE_ANY;}
+          tooltip {Must have received a result from inquiry or a message from someone else to communicate} xywh {240 167 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Check_Button {createLinkPrefsWindow->buttonExcludePrior} {
+        label {as fulfilling}
+        callback {app->workingSetup.countPriorAsEvidence = ((Fl_Check_Button*)o)->value();}
+        tooltip {Allow communication once based just on prior, i.e. before receiving new information} xywh {325 147 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+      }
+      Fl_Box {} {
+        label {Treat prior}
+        xywh {345 129 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Box {} {
+        label requirement
+        xywh {345 165 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+    }
+    Fl_Window batchSimulationWindow {
+      label Simulation open
+      xywh {670 243 640 334} type Double box UP_BOX labelfont 2 align 80
+      class BatchSimulationWindow modal noborder visible
+    } {
+      Fl_Button {batchSimulationWindow->buttonCancel} {
+        label Cancel
+        callback {batchSimulationWindow->closeDialog(false);}
+        xywh {525 245 95 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Return_Button {} {
+        label OK
+        callback {batchSimulationWindow->closeDialog(true);}
+        xywh {525 280 95 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {batchSimulationWindow->buttonLoad} {
+        label {Load...}
+        callback {batchSimulationWindow->loadBatchSimulation();}
+        tooltip {Load a batch simulation} xywh {525 165 95 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {batchSimulationWindow->buttonSave} {
+        label {Save...}
+        callback {batchSimulationWindow->saveBatchSimulation();}
+        tooltip {Save this batch simulation to a file} xywh {525 200 95 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Tabs {batchSimulationWindow->groupTabs} {open
+        xywh {65 20 440 290}
+      } {
+        Fl_Group {batchSimulationWindow->groupStage} {
+          label Stage
+          xywh {65 45 440 265} labeltype ENGRAVED_LABEL labelfont 2 hide resizable
+        } {
+          Fl_Value_Input {batchSimulationWindow->inputStepsPerTrial} {
+            label {Number of Steps}
+            callback {batchSimulationWindow->bs.nSteps[batchSimulationWindow->bs.curStage] = o->value();}
+            tooltip {Number of time steps in stage} xywh {250 150 80 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum 1 maximum 1e+06 step 1 value 100
+          }
+        }
+        Fl_Group {batchSimulationWindow->groupNetwork} {
+          label Network open
+          xywh {65 45 440 265} labeltype ENGRAVED_LABEL labelfont 2 hide
+        } {
+          Fl_Check_Button {batchSimulationWindow->buttonVaryPopulation} {
+            label Create
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].varyPopulation = true;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].varyPopulation = false;
+batchSimulationWindow->configure();}
+            tooltip {Should simulation generate a whole new society at the start of the stage?} xywh {248 54 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Value_Input {batchSimulationWindow->inputPopulationMin} {
+            label Min
+            callback {if(o->value() > batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max = o->value();
+batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.setDiscreteRange(o->value(), batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max);
+batchSimulationWindow->configure();}
+            tooltip {Minimum population} xywh {73 151 40 18} labeltype ENGRAVED_LABEL labelfont 2 align 2 minimum 1 maximum 999 step 1
+          }
+          Fl_Value_Input {batchSimulationWindow->inputPopulationMax} {
+            label Max
+            callback {if(o->value() < batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.min) {
+	batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max = batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.min;
+	batchSimulationWindow->maxValid[batchSimulationWindow->bs.curStage] = false;
+}
+else {
+	batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max = o->value();
+	batchSimulationWindow->maxValid[batchSimulationWindow->bs.curStage] = true;
+}
+batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.setDiscreteRange(batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.min, batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].populationDistribution.max);
+batchSimulationWindow->configure();}
+            tooltip {Maximum population} xywh {233 151 40 18} labeltype ENGRAVED_LABEL labelfont 2 align 2 minimum 1 maximum 999 step 1
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryLinks} {
+            label Create
+            callback {if(o->value())batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].varyLinks = true;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].varyLinks = false;
+batchSimulationWindow->configure();}
+            tooltip {Should simulation generate a whole new link network at the start of this stage?} xywh {470 53 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxPopulation} {
+            label Population
+            xywh {80 72 184 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewPopulation} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of total number of inquirers} xywh {82 74 180 64}
+            class DistributionView
+          }
+          Fl_Box {} {
+            xywh {284 57 2 238} box THIN_DOWN_BOX
+          }
+          Fl_Box {batchSimulationWindow->boxLinks} {
+            label {Link Density}
+            xywh {302 71 184 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewLinkDensity} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of link density / number of links} xywh {304 73 180 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonLimitLinksToOnePerPair} {
+            label {≤1 / pair}
+            callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].limitLinksToOnePerPair = o->value();
+batchSimulationWindow->configure();}
+            tooltip {Limit links to at most one per ordered pair} xywh {302 173 85 22} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Group {batchSimulationWindow->groupWeights} {
+            label Weights open
+            xywh {305 200 180 97} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 9
+          } {
+            Fl_Value_Input {batchSimulationWindow->inputLinkWeights[WT_SYMMETRY]} {
+              label {Symmetry:}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkWeights[WT_SYMMETRY] = o->value();
+batchSimulationWindow->configure();}
+              tooltip {Additional weight for inquirers that are listeners of the current one} xywh {425 228 55 19} labeltype ENGRAVED_LABEL labelfont 2 minimum -9999 maximum 9999 step 0.001
+            }
+            Fl_Value_Input {batchSimulationWindow->inputLinkWeights[WT_TRANSITIVITY]} {
+              label {Transitivity:}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkWeights[WT_TRANSITIVITY] = o->value();
+batchSimulationWindow->configure();}
+              tooltip {Additional weight for inquirers that are linked to inquirers linked to the current one} xywh {425 250 55 19} labeltype ENGRAVED_LABEL labelfont 2 minimum -9999 maximum 9999 step 0.001
+            }
+            Fl_Value_Input {batchSimulationWindow->inputLinkWeights[WT_CLUSTERING]} {
+              label {Clustering:}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkWeights[WT_CLUSTERING] = o->value();
+batchSimulationWindow->configure();}
+              tooltip {Additional weight per listener} xywh {425 272 55 18} labeltype ENGRAVED_LABEL labelfont 2 minimum -9999 maximum 9999 step 0.001
+            }
+            Fl_Value_Input {batchSimulationWindow->inputLinkWeights[WT_BASE]} {
+              label {Base:}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkWeights[WT_BASE] = o->value();
+batchSimulationWindow->configure();}
+              tooltip {Base weight for each inquirer} xywh {425 206 55 19} labeltype ENGRAVED_LABEL labelfont 2 maximum 9999 step 0.001 value 1
+            }
+          }
+          Fl_Box {} {
+            xywh {84 140 2 11} box THIN_DOWN_BOX labeltype ENGRAVED_LABEL
+          }
+          Fl_Box {} {
+            xywh {259 140 2 11} box THIN_DOWN_BOX labeltype ENGRAVED_LABEL
+          }
+          Fl_Box {batchSimulationWindow->linkDensityViewLabel[0]} {
+            label 0
+            xywh {292 139 30 16} labeltype ENGRAVED_LABEL labelsize 12
+          }
+          Fl_Box {batchSimulationWindow->linkDensityViewLabel[2]} {
+            label {1.0}
+            xywh {460 139 45 16} labeltype ENGRAVED_LABEL labelsize 12
+          }
+          Fl_Box {batchSimulationWindow->linkDensityViewLabel[1]} {
+            label {0.5}
+            xywh {370 139 50 16} labeltype ENGRAVED_LABEL labelsize 12
+          }
+          Fl_Choice {batchSimulationWindow->choiceLinkApplication} {open
+            tooltip {Determines how link density distribution is interpreted} xywh {390 155 97 20} down_box BORDER_BOX
+          } {
+            MenuItem {} {
+              label {in total}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod = (batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod  & ~LDM_MASK) | LDM_TOTAL;
+batchSimulationWindow->configure();}
+              xywh {0 0 31 20} labelfont 2
+            }
+            MenuItem {} {
+              label {per inquirer}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod = (batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod  & ~LDM_MASK) | LDM_PER_INQUIRER;
+batchSimulationWindow->configure();}
+              xywh {0 0 31 20} labelfont 2
+            }
+            MenuItem {} {
+              label {per inq. sq.}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod = (batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod  & ~LDM_MASK) | LDM_PER_INQUIRER_SQUARED;
+batchSimulationWindow->configure();}
+              xywh {0 0 31 20} labelfont 2
+            }
+          }
+          Fl_Group {batchSimulationWindow->groupGrowth} {
+            label Growth open
+            xywh {80 209 185 90} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+          } {
+            Fl_Value_Slider {batchSimulationWindow->sliderInitialPopulationPart} {
+              label {Grown population part}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].initialPopulationPart = 1.0 - o->value();}
+              tooltip {Part of population grown} xywh {90 231 165 20} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 5 value 0.23 textsize 14
+            }
+            Fl_Value_Slider {batchSimulationWindow->sliderGrowthBalance} {
+              label {In / Out Link Balance}
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].growthBalance = o->value();}
+              tooltip {Balance of links to / from grown inquirers. 0 = all incoming, 1 = all outgoing.} xywh {90 271 165 19} type {Horz Knob} labeltype ENGRAVED_LABEL labelfont 2 align 5 value 0.5 textsize 14
+            }
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonGrowPopulation} {
+            label On
+            callback {if(o->value()) {
+batchSimulationWindow->sliderInitialPopulationPart->activate();
+batchSimulationWindow->sliderGrowthBalance->activate();
+}
+else {
+	batchSimulationWindow->sliderInitialPopulationPart->value(0);
+	batchSimulationWindow->sliderInitialPopulationPart->deactivate();
+	batchSimulationWindow->sliderGrowthBalance->deactivate();
+}}
+            tooltip {Grow part of population organically} xywh {249 191 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Choice {batchSimulationWindow->choiceLinkCountMethod} {open
+            tooltip {Determines how link density distribution is interpreted} xywh {304 155 80 20} down_box BORDER_BOX
+          } {
+            MenuItem {} {
+              label Density
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod &= ~LDM_TO_NUMBER_BIT;
+batchSimulationWindow->configure();}
+              xywh {10 10 31 20} labelfont 2
+            }
+            MenuItem {} {
+              label Number
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkDistributionMethod |= LDM_TO_NUMBER_BIT;
+batchSimulationWindow->configure();}
+              xywh {10 10 31 20} labelfont 2
+            }
+          }
+        }
+        Fl_Group {batchSimulationWindow->groupInquirers} {
+          label Inquirers open
+          xywh {65 45 440 265} labeltype ENGRAVED_LABEL labelfont 2 align 5 hide
+        } {
+          Fl_Check_Button {batchSimulationWindow->buttonVaryBelief} {
+            label Vary
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyStartBelief = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyStartBelief = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should inquirers' starting degree of belief be randomized at the start of this stage?} xywh {261 68 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxBelief} {
+            label {Starting Belief }
+            xywh {80 86 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewBelief} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of starting degrees of belief} xywh {82 88 192 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryInquiryAccuracy} {
+            label Vary
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryAccuracy = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryAccuracy = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should inquirers' inquiry accuracy be randomized at the start of this stage?} xywh {475 69 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxInquiryAccuracy} {
+            label {Inquiry Accuracy}
+            xywh {295 87 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewInquiryAccuracy} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of inquiry accuracy} xywh {297 89 192 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryInquiryTrust} {
+            label Vary
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryTrust = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryTrust = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should inquirers' trust functions be randomized at the start of this stage?} xywh {260 174 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxInquiryTrust} {
+            label {Inquiry Trust}
+            xywh {80 192 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewInquiryTrust} {
+            callback {batchSimulationWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+            tooltip {Inquiry trust function metadistribution} xywh {82 194 192 64}
+            class MetaDistributionView
+          }
+          Fl_Box {batchSimulationWindow->boxInquiryChance} {
+            label {Inquiry Chance}
+            xywh {295 192 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewInquiryChance} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of inquiry chance} xywh {297 194 192 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryInquiryChance} {
+            label Vary
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryChance = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].inqParams.varyInquiryChance = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should inquirers' inquiry chance be randomized at the start of this stage?} xywh {475 174 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+        }
+        Fl_Group {batchSimulationWindow->groupLinks} {
+          label Links open
+          xywh {65 45 440 265} labeltype ENGRAVED_LABEL labelfont 2 align 5 hide
+        } {
+          Fl_Check_Button {batchSimulationWindow->buttonVaryListenChance} {
+            label Vary
+            callback {if(o->value())batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyListenChance = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyListenChance = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should links' communication chance be randomized at the start of this stage?} xywh {260 68 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxListenChance} {
+            label {Comm. Chance }
+            xywh {80 86 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewListenChance} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of communication chance} xywh {82 88 192 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryThreshold} {
+            label Vary
+            callback {if(o->value()) batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyThreshold = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyThreshold = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should links' communication threshold degree of belief be randomized at the start of this stage?} xywh {475 69 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxThreshold} {
+            label {Belief Threshold}
+            tooltip {Distribution of belief threshold} xywh {295 87 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewThreshold} {
+            callback {batchSimulationWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+            tooltip {Distribution of belief threshold} xywh {297 89 192 64}
+            class DistributionView
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonVaryTrust} {
+            label Vary
+            callback {if(o->value())batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyTrust = VARY_GLOBALLY;
+else batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].linkParams.varyTrust = KEEP_CONSTANT;
+batchSimulationWindow->configure();}
+            tooltip {Should links' trust functions be randomized at the start of this stage?} xywh {260 174 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 4
+          }
+          Fl_Box {batchSimulationWindow->boxTrust} {
+            label Trust
+            xywh {80 192 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+          }
+          Fl_Box {batchSimulationWindow->viewTrust} {
+            callback {batchSimulationWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+            tooltip {Trust function metadistribution} xywh {82 194 192 64}
+            class MetaDistributionView
+          }
+          Fl_Group {batchSimulationWindow->boxEvidencePolicy} {
+            label {New Evidence Requirement} open
+            xywh {295 193 195 67} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2 align 5
+          } {
+            Fl_Round_Button {batchSimulationWindow->buttonEvidencePolicy[0]} {
+              label None
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].evidencePolicy = NEW_EVIDENCE_NONE;}
+              tooltip {Can communicate without having received any new evidence} xywh {300 197 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Round_Button {batchSimulationWindow->buttonEvidencePolicy[1]} {
+              label Inquiry
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].evidencePolicy = NEW_EVIDENCE_INQUIRY;}
+              tooltip {Must have received a result from inquiry since last to communicate} xywh {300 217 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Round_Button {batchSimulationWindow->buttonEvidencePolicy[2]} {
+              label Any
+              callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].evidencePolicy = NEW_EVIDENCE_ANY;}
+              tooltip {Must have received a result from inquiry or a message from someone else to communicate} xywh {300 237 75 20} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            }
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonExcludePrior} {
+            label {as fulfilling}
+            callback {batchSimulationWindow->bs.setup[batchSimulationWindow->bs.curStage].countPriorAsEvidence = ((Fl_Check_Button*)o)->value();}
+            tooltip {Allow communication once based just on prior, i.e. before receiving new information} xywh {385 217 20 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 8
+          }
+          Fl_Box {batchSimulationWindow->labelBox1} {
+            label {Treat prior}
+            xywh {405 199 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+          }
+          Fl_Box {batchSimulationWindow->labelBox2} {
+            label requirement
+            xywh {405 235 85 20} labeltype ENGRAVED_LABEL labelfont 2 align 20
+          }
+        }
+        Fl_Group {batchSimulationWindow->groupEValues} {
+          label {E-Values} open
+          xywh {65 45 440 265} labeltype ENGRAVED_LABEL labelfont 2 hide
+        } {
+          Fl_Group {} {
+            label {Apply evaluation} open
+            xywh {135 95 145 180} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+          } {
+            Fl_Round_Button {batchSimulationWindow->btnInqIndividually} {
+              label Individually
+              callback {batchSimulationWindow->bs.sim.val.applicationMethod = APPLY_INDIVIDUALLY;
+batchSimulationWindow->inputMajorityAmount->deactivate();
+batchSimulationWindow->inputMajorityPCertainty->deactivate();
+batchSimulationWindow->inputMajorityNotPCertainty->deactivate();
+batchSimulationWindow->boxAmt->deactivate();
+batchSimulationWindow->boxBlfP->deactivate();
+batchSimulationWindow->boxBlfNotP->deactivate();
+batchSimulationWindow->btnAmtMethod->deactivate();
+batchSimulationWindow->btnBlfPMethod->deactivate();
+batchSimulationWindow->btnBlfNotPMethod->deactivate();}
+              tooltip {Apply E-value calculation to each inquirer in society and then average} xywh {145 109 90 25} type Radio down_box ROUND_DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Round_Button {batchSimulationWindow->btnInqMajority} {
+              label {To Majority}
+              callback {batchSimulationWindow->bs.sim.val.applicationMethod = APPLY_TO_MAJORITY;
+batchSimulationWindow->inputMajorityAmount->activate();
+batchSimulationWindow->inputMajorityPCertainty->activate();
+batchSimulationWindow->inputMajorityNotPCertainty->activate();
+batchSimulationWindow->boxAmt->activate();
+batchSimulationWindow->boxBlfP->activate();
+batchSimulationWindow->boxBlfNotP->activate();
+batchSimulationWindow->btnAmtMethod->activate();
+batchSimulationWindow->btnBlfPMethod->activate();
+batchSimulationWindow->btnBlfNotPMethod->activate();}
+              tooltip {Apply E-value calculation to what the majority believes} xywh {145 159 90 25} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Value_Input {batchSimulationWindow->inputMajorityAmount} {
+              label {%}
+              callback {batchSimulationWindow->bs.sim.val.majorityAmt = o->value() / 100.0;}
+              tooltip {How big a majority is needed?} xywh {215 183 40 22} labeltype ENGRAVED_LABEL labelfont 2 align 8 minimum 50 maximum 100 step 0.1 value 50
+            }
+            Fl_Value_Input {batchSimulationWindow->inputMajorityPCertainty} {
+              label {%}
+              callback {batchSimulationWindow->bs.sim.val.majorityPCert = o->value() / 100.0;}
+              tooltip {How certain do inquirers have to be to count as believing p?} xywh {215 208 40 22} labeltype ENGRAVED_LABEL labelfont 2 align 8 maximum 100 step 0.1 value 50
+            }
+            Fl_Round_Button {batchSimulationWindow->btnInqAverage} {
+              label {To Average}
+              callback {batchSimulationWindow->bs.sim.val.applicationMethod = APPLY_TO_AVERAGE;
+batchSimulationWindow->inputMajorityAmount->deactivate();
+batchSimulationWindow->inputMajorityPCertainty->deactivate();
+batchSimulationWindow->inputMajorityNotPCertainty->deactivate();
+batchSimulationWindow->boxAmt->deactivate();
+batchSimulationWindow->boxBlfP->deactivate();
+batchSimulationWindow->boxBlfNotP->deactivate();
+batchSimulationWindow->btnAmtMethod->deactivate();
+batchSimulationWindow->btnBlfPMethod->deactivate();
+batchSimulationWindow->btnBlfNotPMethod->deactivate();}
+              tooltip {Apply E-value calculation to average degree of belief in society} xywh {145 134 110 25} type Radio down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Button {batchSimulationWindow->btnAmtMethod} {
+              label {>}
+              callback {if(strcmp(o->label(), ">") == 0){
+	char str[8];
+	wchar_t wstr = 0x2265;
+	fl_utf8fromwc(str, 8, &wstr, 1);		
+	o->copy_label(str);
+	batchSimulationWindow->bs.sim.val.amtStrictlyGreater = false;
+}
+else {
+	o->copy_label(">");
+	batchSimulationWindow->bs.sim.val.amtStrictlyGreater = true;
+}}
+              xywh {193 184 20 20} labeltype ENGRAVED_LABEL labelfont 1
+            }
+            Fl_Button {batchSimulationWindow->btnBlfPMethod} {
+              label {>}
+              callback {if(strcmp(o->label(), ">") == 0){
+	char str[8];
+	wchar_t wstr = 0x2265;
+	fl_utf8fromwc(str, 8, &wstr, 1);		
+	o->copy_label(str);
+	batchSimulationWindow->bs.sim.val.blfPStrictlyGreater = false;
+
+}
+else {
+	o->copy_label(">");
+	batchSimulationWindow->bs.sim.val.blfPStrictlyGreater = false;
+}}
+              xywh {193 209 20 20} labeltype ENGRAVED_LABEL labelfont 1
+            }
+            Fl_Box {batchSimulationWindow->boxAmt} {
+              label {amt.}
+              xywh {160 188 35 16} labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Box {batchSimulationWindow->boxBlfP} {
+              label {blf. p}
+              xywh {155 213 35 16} labeltype ENGRAVED_LABEL labelfont 2
+            }
+            Fl_Value_Input {batchSimulationWindow->inputMajorityNotPCertainty} {
+              label {%}
+              callback {batchSimulationWindow->bs.sim.val.majorityNotPCert = o->value() / 100.0;}
+              tooltip {How certain do inquirers have to be to believe not-p?} xywh {215 233 40 22} labeltype ENGRAVED_LABEL labelfont 2 align 8 maximum 100 step 0.1 value 50
+            }
+            Fl_Button {batchSimulationWindow->btnBlfNotPMethod} {
+              label {<}
+              callback {if(strcmp(o->label(), ">") == 0){
+	char str[8];
+	wchar_t wstr = 0x2264;
+	fl_utf8fromwc(str, 8, &wstr, 1);		
+	o->copy_label(str);
+	batchSimulationWindow->bs.sim.val.blfNotPStrictlyLess = false;
+
+}
+else {
+	o->copy_label("<");
+	batchSimulationWindow->bs.sim.val.blfNotPStrictlyLess = false;
+}}
+              xywh {193 234 20 20} labeltype ENGRAVED_LABEL labelfont 1
+            }
+            Fl_Box {batchSimulationWindow->boxBlfNotP} {
+              label {blf. ~p}
+              xywh {155 238 35 16} labeltype ENGRAVED_LABEL labelfont 2
+            }
+          }
+          Fl_Group {} {
+            label {Individual utilities} open
+            xywh {290 95 145 180} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+          } {
+            Fl_Value_Input {batchSimulationWindow->inputBeliefPValue} {
+              label {Believe p}
+              callback {batchSimulationWindow->bs.sim.val.eValues[2] = o->value();}
+              tooltip {Epistemic utility of an inquirer believing p} xywh {320 118 85 21} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum -10000 maximum 10000 step 0.001 value 1
+            }
+            Fl_Value_Input {batchSimulationWindow->inputBeliefNoneValue} {
+              label {Believe p V ~p}
+              callback {batchSimulationWindow->bs.sim.val.eValues[1] = o->value();}
+              tooltip {Epistemic utility of an inquirer believing neither p nor not-p} xywh {320 159 85 21} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum -10000 maximum 10000 step 0.001 value 0.5
+            }
+            Fl_Value_Input {batchSimulationWindow->inputBeliefNotPValue} {
+              label { Believe ~p}
+              callback {batchSimulationWindow->bs.sim.val.eValues[0] = o->value();}
+              tooltip {Epistemic utility of an inquirer believing not-p} xywh {320 199 85 21} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum -10000 maximum 10000 step 0.001
+            }
+            Fl_Value_Input {batchSimulationWindow->inputExponent} {
+              label { Exponent}
+              callback {batchSimulationWindow->bs.sim.val.exponent = o->value();}
+              tooltip {Exponent of E-value} xywh {320 239 85 21} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum 0.1 maximum 100 step 0.001 value 1
+            }
+          }
+        }
+        Fl_Group {batchSimulationWindow->groupRecord} {
+          label Record open
+          xywh {70 45 435 265} labeltype ENGRAVED_LABEL labelfont 2
+        } {
+          Fl_Check_Button {batchSimulationWindow->buttonRecordEValues} {
+            label {Record E-values}
+            callback {batchSimulationWindow->bs.stats.recordEValueStats = o->value();
+if(o->value()) {
+	batchSimulationWindow->fieldSocietiesPerEValue->activate();
+	batchSimulationWindow->labelEValueSocieties->activate();
+	batchSimulationWindow->fieldTimePerEValue->activate();
+	batchSimulationWindow->labelEValueTimeSteps->activate();
+}
+else {
+	batchSimulationWindow->fieldSocietiesPerEValue->deactivate();
+	batchSimulationWindow->labelEValueSocieties->deactivate();
+	batchSimulationWindow->fieldTimePerEValue->deactivate();
+	batchSimulationWindow->labelEValueTimeSteps->deactivate();
+
+}}
+            xywh {90 65 180 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Value_Input {batchSimulationWindow->fieldSocietiesPerEValue} {
+            label Every
+            callback {batchSimulationWindow->bs.stats.societiesPerEValueStat = o->value();}
+            xywh {130 96 40 24} labeltype ENGRAVED_LABEL labelfont 2 minimum 1 maximum 1000 step 1 value 1 deactivate
+          }
+          Fl_Box {batchSimulationWindow->labelEValueSocieties} {
+            label societies
+            xywh {170 95 65 26} labeltype ENGRAVED_LABEL labelfont 2 align 20 deactivate
+          }
+          Fl_Value_Input {batchSimulationWindow->fieldTimePerEValue} {
+            label Every
+            callback {batchSimulationWindow->bs.stats.timePerEValueStat = o->value();}
+            xywh {130 130 40 24} labeltype ENGRAVED_LABEL labelfont 2 minimum 1 maximum 1000 step 1 value 1 deactivate
+          }
+          Fl_Box {batchSimulationWindow->labelEValueTimeSteps} {
+            label {time steps}
+            xywh {170 129 82 26} labeltype ENGRAVED_LABEL labelfont 2 align 20 deactivate
+          }
+          Fl_Check_Button {batchSimulationWindow->buttonRecordTopologies} {
+            label {Record Topologies}
+            callback {batchSimulationWindow->bs.stats.recordTopologies = o->value();
+if(o->value()) {
+	batchSimulationWindow->fieldSocietiesPerTopology->activate();
+	batchSimulationWindow->labelTopologySocieties->activate();
+}
+else {
+	batchSimulationWindow->fieldSocietiesPerTopology->deactivate();
+	batchSimulationWindow->labelTopologySocieties->deactivate();
+
+}}
+            xywh {315 65 180 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Value_Input {batchSimulationWindow->fieldSocietiesPerTopology} {
+            label Every
+            callback {batchSimulationWindow->bs.stats.societiesPerTopology = o->value();}
+            xywh {355 96 40 24} labeltype ENGRAVED_LABEL labelfont 2 minimum 1 maximum 1000 step 1 value 1 deactivate
+          }
+          Fl_Box {batchSimulationWindow->labelTopologySocieties} {
+            label societies
+            xywh {395 95 65 26} labeltype ENGRAVED_LABEL labelfont 2 align 20 deactivate
+          }
+          Fl_Box {} {
+            xywh {282 58 2 236} box THIN_DOWN_BOX
+          }
+        }
+      }
+      Fl_Spinner {batchSimulationWindow->inputNumStages} {
+        label Stages
+        callback {batchSimulationWindow->setNumStages(o->value());}
+        tooltip {Number of stages in simulation} xywh {15 25 35 35} labeltype ENGRAVED_LABEL labelfont 2 align 2 maximum 4
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToNext[0]} {
+        label {@2>}
+        callback {batchSimulationWindow->copyBatch(0, 1);
+batchSimulationWindow->setStage(1);}
+        tooltip {Copy stage 1 to stage 2} xywh {15 125 15 15} labelsize 9
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToPrev[0]} {
+        label {@2<}
+        callback {batchSimulationWindow->copyBatch(1, 0);
+batchSimulationWindow->setStage(0);}
+        tooltip {Copy stage 2 to stage 1} xywh {35 125 15 15} labelsize 8
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToNext[1]} {
+        label {@2>}
+        callback {batchSimulationWindow->copyBatch(1, 2);
+batchSimulationWindow->setStage(2);}
+        tooltip {Copy stage 2 to stage 3} xywh {15 185 15 15} labelsize 9
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToPrev[1]} {
+        label {@2<}
+        callback {batchSimulationWindow->copyBatch(2, 1);
+batchSimulationWindow->setStage(1);}
+        tooltip {Copy stage 3 to stage 2} xywh {35 185 15 15} labelsize 8
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToNext[2]} {
+        label {@2>}
+        callback {batchSimulationWindow->copyBatch(2, 3);
+batchSimulationWindow->setStage(3);}
+        tooltip {Copy stage 3 to stage 4} xywh {15 245 15 15} labelsize 9
+      }
+      Fl_Button {batchSimulationWindow->btnCopyStageToPrev[2]} {
+        label {@2<}
+        callback {batchSimulationWindow->copyBatch(3, 2);
+batchSimulationWindow->setStage(2);}
+        tooltip {Copy stage 4 to stage 3} xywh {35 245 15 15} labelsize 8
+      }
+      Fl_Light_Button {batchSimulationWindow->btnStage[0]} {
+        label 1
+        callback {batchSimulationWindow->setStage(0);}
+        tooltip {Edit stage 1} xywh {15 85 35 35} value 1 labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Light_Button {batchSimulationWindow->btnStage[1]} {
+        label 2
+        callback {batchSimulationWindow->setStage(1);}
+        tooltip {Edit stage 2} xywh {15 145 35 35} labelfont 1
+      }
+      Fl_Light_Button {batchSimulationWindow->btnStage[2]} {
+        label 3
+        callback {batchSimulationWindow->setStage(2);}
+        tooltip {Edit stage 3} xywh {15 205 35 35} labelfont 1
+      }
+      Fl_Light_Button {batchSimulationWindow->btnStage[3]} {
+        label 4
+        callback {batchSimulationWindow->setStage(3);}
+        tooltip {Edit stage 4} xywh {15 265 35 35} labelfont 1
+      }
+      Fl_Value_Input {batchSimulationWindow->inputNumTrials} {
+        label {\# Trials}
+        callback {batchSimulationWindow->bs.nTrials = o->value();}
+        tooltip {Number of simulations to run} xywh {525 45 95 25} labeltype ENGRAVED_LABEL labelfont 2 align 1 minimum 1 maximum 1e+06 step 1 value 100
+      }
+      Fl_Box {batchSimulationWindow->boxPosition} {
+        label Position
+        xywh {525 95 95 95} box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2 align 1
+      }
+      Fl_Box {batchSimulationWindow->selectorPosition} {
+        callback {batchSimulationWindow->mb->generateBatch(o->xVal->value(), o->yVal->value());
+batchSimulationWindow->bs = batchSimulationWindow->mb->curBatch;
+batchSimulationWindow->configure();}
+        xywh {527 97 91 91} box FLAT_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+        code0 {\#include "CoordinateSelector.h"}
+        class CoordinateSelector
+      }
+      Fl_Button {} {
+        label {?}
+        callback {if(batchSimulationWindow->dialogForm == BS_FORM_GENERATE) batchSimulationWindow->showDialog(DIALOG_MANUAL, "generation.htm");
+else batchSimulationWindow->showDialog(DIALOG_MANUAL, "batchsimulation.htm");}
+        xywh {610 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window progressWindow {
+      label Progress open
+      xywh {574 518 747 40} type Double box UP_BOX align 80
+      class ProgressWindow modal noborder visible
+    } {
+      Fl_Progress {progressWindow->barProgress} {
+        xywh {10 10 645 20} selection_color 12 labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {progressWindow->closeDialog(false);}
+        tooltip {Cancel simulation in progress} xywh {665 10 70 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window statisticsWindow {open
+      xywh {362 124 682 576} type Double box UP_BOX labelfont 2 align 80
+      class StatisticsWindow modal noborder visible
+    } {
+      Fl_Box {} {
+        xywh {40 42 604 204} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 2
+      }
+      Fl_Button {} {
+        label Close
+        callback {statisticsWindow->closeDialog(true);}
+        tooltip {Close window} xywh {575 520 85 30} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {statisticsWindow->boxDiagramYValue[0]} {
+        label 0
+        xywh {-15 42 55 20} align 24
+      }
+      Fl_Box {statisticsWindow->boxDiagramYValue[1]} {
+        label 0
+        xywh {-15 87 55 20} align 24
+      }
+      Fl_Box {statisticsWindow->boxDiagramYValue[3]} {
+        label 0
+        xywh {-15 177 55 20} align 24
+      }
+      Fl_Box {statisticsWindow->viewDiagram} {
+        tooltip {Average evolution of societies'  e-values over time} xywh {42 44 600 200}
+        class StatisticsView
+      }
+      Fl_Output {statisticsWindow->outputAvgEValue} {
+        label {Average E-Value}
+        tooltip {Average E-value of all societies} xywh {145 285 66 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputEValueDelta} {
+        label {Avg. E-Value ∆}
+        tooltip {Average E-value change from starting position for all societies} xywh {145 310 65 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputNumSocieties} {
+        label {\# Simulations run}
+        tooltip {Number of simulations run} xywh {585 375 60 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputNumSteps} {
+        label {\# Steps / Society}
+        tooltip {Number of time steps of each simulation} xywh {585 400 60 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {statisticsWindow->boxDiagramYValue[2]} {
+        label 0
+        xywh {-15 132 55 20} align 24
+      }
+      Fl_Box {statisticsWindow->boxDiagramXValue[0]} {
+        label 0
+        xywh {40 246 60 20} align 20
+      }
+      Fl_Box {statisticsWindow->boxDiagramXValue[1]} {
+        label 0
+        xywh {164 245 60 20} align 16
+      }
+      Fl_Box {statisticsWindow->boxDiagramXValue[2]} {
+        label 0
+        xywh {312 246 60 20} align 16
+      }
+      Fl_Box {statisticsWindow->boxDiagramXValue[4]} {
+        label 0
+        xywh {590 246 60 20} align 24
+      }
+      Fl_Output {statisticsWindow->outputAvgEValueMargin} {
+        label {±}
+        tooltip {Confidence interval} xywh {225 285 55 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputEValueDeltaMargin} {
+        label {±}
+        tooltip {Confidence interval} xywh {225 310 55 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Choice {statisticsWindow->choiceConfidenceLevel} {
+        label {Confidence Level} open
+        xywh {215 385 65 20} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        MenuItem {} {
+          label {90%}
+          callback {statisticsWindow->computeConfidences(0.9f);}
+          xywh {0 0 30 20}
+        }
+        MenuItem {} {
+          label {95%}
+          callback {statisticsWindow->computeConfidences(0.95f);}
+          xywh {10 10 30 20}
+        }
+        MenuItem {} {
+          label {99%}
+          callback {statisticsWindow->computeConfidences(0.99f);}
+          xywh {20 20 30 20}
+        }
+        MenuItem {} {
+          label {99.9%}
+          callback {statisticsWindow->computeConfidences(0.999f);}
+          xywh {30 30 30 20}
+        }
+      }
+      Fl_Output {statisticsWindow->outputMessagesSentTotal} {
+        label {Avg. \# Messages Sent}
+        tooltip {Average total number of messages sent during simulation} xywh {490 305 75 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputInquiryResultsTotal} {
+        label {Avg. \# Inquiry Results}
+        tooltip {Average total number of inquiry results obtained during simulation} xywh {490 330 75 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputMessagesSentPerInquirer} {
+        tooltip {Average number of messages sent during simulation per inquirer} xywh {570 305 75 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputInquiryResultsPerInquirer} {
+        tooltip {Average number of inquiry results obtained during simulation per inquirer} xywh {570 330 75 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {} {
+        label total
+        xywh {495 284 60 24} labeltype ENGRAVED_LABEL labelfont 2 align 16
+      }
+      Fl_Box {} {
+        label {per inq.}
+        xywh {580 284 60 24} labeltype ENGRAVED_LABEL labelfont 2 align 16
+      }
+      Fl_Output {statisticsWindow->outputBWToPPerc} {
+        label {Towards p}
+        tooltip {Percent of times an individual's degree of belief have been nudged towards p by outside causes} xywh {165 440 45 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputBWToNotPPerc} {
+        label {Towards -p}
+        tooltip {Percent of times an individual's degree of belief have been nudged towards not-p by outside causes} xywh {165 465 45 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputBWToPEffect} {
+        tooltip {Average difference in degree of belief between actual result, and what it would have been using only inquiry, in such cases} xywh {215 440 65 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputBWToNotPEffect} {
+        tooltip {Average difference in degree of belief between actual result, and what it would have been using only inquiry, in such cases} xywh {215 465 65 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {} {
+        label {Avg. Bandwagoning}
+        xywh {35 418 135 25} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Box {} {
+        label {%}
+        xywh {158 418 60 25} labeltype ENGRAVED_LABEL labelfont 2 align 16
+      }
+      Fl_Box {} {
+        label effect
+        xywh {218 418 60 25} labeltype ENGRAVED_LABEL labelfont 2 align 16
+      }
+      Fl_Box {statisticsWindow->boxDiagramXValue[3]} {
+        label 0
+        xywh {463 245 60 20} align 16
+      }
+      Fl_Box {statisticsWindow->boxDiagramYValue[4]} {
+        label 0
+        xywh {-15 221 55 20} align 24
+      }
+      Fl_Box {} {
+        label {Average E-Value over time}
+        xywh {40 16 190 26} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Output {statisticsWindow->outputPolarisation} {
+        label {Avg. Polarisation}
+        tooltip {Average standard deviation of E-values in all societies} xywh {145 335 66 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputPolarisationDelta} {
+        label {Avg. Polarisation ∆}
+        tooltip {Average change in standard deviation of E-values in all societies} xywh {145 360 65 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputPolarisationMargin} {
+        label {±}
+        tooltip {Confidence interval} xywh {225 335 55 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Output {statisticsWindow->outputPolarisationDeltaMargin} {
+        label {±}
+        tooltip {Confidence interval} xywh {225 360 55 20} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Button {} {
+        label {?}
+        callback {statisticsWindow->showDialog(DIALOG_MANUAL, "statistics.htm");}
+        xywh {653 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {View Edge Degrees...}
+        callback {statisticsWindow->showDialog(DIALOG_DEGREE_DISTRIBUTION, statisticsWindow->bsShown->stats.degrees);}
+        xywh {60 520 165 30} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {statisticsWindow->buttonExportTopologies} {
+        label {Export Topologies...}
+        callback {statisticsWindow->showDialog(DIALOG_EXPORT_TOPOLOGY, statisticsWindow->bsShown);}
+        xywh {240 520 155 30} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Choice {statisticsWindow->choiceDiagramView} {
+        callback {statisticsWindow->setDiagramView(o->value());} open
+        xywh {510 18 135 20} down_box BORDER_BOX labelfont 2
+      } {
+        MenuItem {} {
+          label {Belief <  0.2}
+          xywh {0 0 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {0.2 <= Belief < 0.4}
+          xywh {10 10 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {0.4 <= Belief <= 0.6}
+          xywh {20 20 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {0.6 < Belief <= 0.8}
+          xywh {30 30 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {0.8 < Belief}
+          xywh {40 40 31 20} labelfont 2
+        }
+        MenuItem {} {
+          label {All Inquirers}
+          xywh {50 50 31 20} labelfont 2
+        }
+      }
+      Fl_Button {statisticsWindow->buttonExportEValues} {
+        label {Export E-Values...}
+        callback {statisticsWindow->showDialog(DIALOG_EXPORT_STATISTICS, statisticsWindow->bsShown);}
+        xywh {410 520 150 30} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {} {
+        xywh {25 499 635 2} box THIN_DOWN_BOX
+      }
+    }
+    Fl_Window aboutWindow {open
+      xywh {539 227 491 279} type Double color 7 align 80
+      class AboutWindow modal noborder visible
+    } {
+      Fl_Button {aboutWindow->buttonAbout} {
+        callback {aboutWindow->closeDialog(true);}
+        xywh {1 1 489 277} box FLAT_BOX color 7
+      }
+    }
+    Fl_Window inquirerParametersWindow {
+      label {Inquirer Simulation Parameters} open
+      xywh {712 175 595 255} type Double box UP_BOX align 80
+      class InquirerParametersWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {inquirerParametersWindow->closeDialog(true);}
+        tooltip {Save and exit} xywh {505 210 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {inquirerParametersWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {430 210 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Slider {inquirerParametersWindow->sliderVaryBelief} {
+        callback {app->workingSetup.inqParams.varyStartBelief = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setInquirerParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {220 31 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {240 36 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Slider {inquirerParametersWindow->sliderVaryInquiryChance} {
+        callback {app->workingSetup.inqParams.varyInquiryChance = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setInquirerParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {220 122 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Slider {inquirerParametersWindow->sliderVaryVeracityChance} {
+        callback {app->workingSetup.inqParams.varyInquiryAccuracy = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setInquirerParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {505 32 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {inquirerParametersWindow->boxBelief} {
+        label {Starting Belief }
+        xywh {20 31 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {inquirerParametersWindow->viewBelief} {
+        callback {inquirerParametersWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of starting degree of belief} xywh {22 33 192 64}
+        class DistributionView
+      }
+      Fl_Box {inquirerParametersWindow->boxInquiryAccuracy} {
+        label {Inquiry Accuracy}
+        xywh {305 32 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {inquirerParametersWindow->viewInquiryAccuracy} {
+        callback {inquirerParametersWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of inquiry accuracy} xywh {307 34 192 64}
+        class DistributionView
+      }
+      Fl_Box {inquirerParametersWindow->boxInquiryTrust} {
+        label {Inquiry Trust}
+        xywh {305 122 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {inquirerParametersWindow->viewInquiryTrust} {
+        callback {inquirerParametersWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+        tooltip {Inquiry trust function metadistribution} xywh {307 124 192 64}
+        class MetaDistributionView
+      }
+      Fl_Box {inquirerParametersWindow->boxInquiryChance} {
+        label {Inquiry Chance}
+        xywh {20 122 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {inquirerParametersWindow->viewInquiryChance} {
+        callback {inquirerParametersWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of inquiry chance} xywh {22 124 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label Default
+        xywh {240 57 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {240 78 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {240 127 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Default
+        xywh {240 148 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {240 169 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {525 37 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Default
+        xywh {525 58 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {525 79 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Slider {inquirerParametersWindow->sliderVaryInquiryTrust} {
+        callback {app->workingSetup.inqParams.varyInquiryTrust = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setInquirerParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {505 122 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {525 127 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Default
+        xywh {525 148 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {525 169 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Button {} {
+        label {?}
+        callback {inquirerParametersWindow->showDialog(DIALOG_MANUAL, "simulationparameters.htm");}
+        xywh {565 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window linkParametersWindow {
+      label {Link Simulation Parameters} open
+      xywh {718 250 599 219} type Double box UP_BOX align 80
+      class LinkParametersWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {linkParametersWindow->closeDialog(true);}
+        tooltip {Save and exit} xywh {505 170 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {linkParametersWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {430 170 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Slider {linkParametersWindow->sliderVaryListenChance} {
+        callback {app->workingSetup.linkParams.varyListenChance = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setLinkParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {220 31 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {240 36 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Slider {linkParametersWindow->sliderVaryThreshold} {
+        callback {app->workingSetup.linkParams.varyThreshold = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setLinkParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {505 32 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {linkParametersWindow->boxListenChance} {
+        label {Communication Chance}
+        xywh {20 31 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {linkParametersWindow->viewListenChance} {
+        callback {linkParametersWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of communication chance} xywh {22 33 192 64}
+        class DistributionView
+      }
+      Fl_Box {linkParametersWindow->boxThreshold} {
+        label {Belief Threshold}
+        xywh {305 32 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {linkParametersWindow->viewThreshold} {
+        callback {linkParametersWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Distribution of belief threshold} xywh {307 34 192 64}
+        class DistributionView
+      }
+      Fl_Box {linkParametersWindow->boxTrust} {
+        label Trust
+        xywh {20 122 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Box {linkParametersWindow->viewTrust} {
+        callback {linkParametersWindow->showDialog(DIALOG_METADISTRIBUTION, o);}
+        tooltip {Trust function metadistribution} xywh {22 124 192 64}
+        class MetaDistributionView
+      }
+      Fl_Box {} {
+        label Default
+        xywh {240 57 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {240 78 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {525 37 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Default
+        xywh {525 58 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {525 79 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Slider {linkParametersWindow->sliderVaryTrust} {
+        callback {app->workingSetup.linkParams.varyTrust = 2 - ((Fl_Value_Slider*)o)->value();
+app->workingSetup.setLinkParametersWindowFrom();}
+        tooltip {Set policy for varying this variable during a batch simulation. Variable: always vary, according to this distribution. Default: vary according to batch simulation's parameters. Constant: never vary.} xywh {220 122 20 68} maximum 2 step 1 value 1 slider_size 0.4
+      }
+      Fl_Box {} {
+        label Variable
+        xywh {240 127 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Default
+        xywh {240 148 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Box {} {
+        label Constant
+        xywh {240 169 60 20} labeltype ENGRAVED_LABEL labelfont 2 labelsize 12 align 20
+      }
+      Fl_Button {} {
+        label {?}
+        callback {linkParametersWindow->showDialog(DIALOG_MANUAL, "simulationparameters.htm");}
+        xywh {570 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window distributionFreeformValuesWindow {
+      label Values open
+      xywh {719 173 238 331} type Double box UP_BOX align 80
+      class DistributionFreeformValuesWindow modal noborder visible
+    } {
+      Fl_Value_Input {distributionFreeformValuesWindow->fieldValue} {
+        label Value
+        xywh {55 15 90 25} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Return_Button {} {
+        label Set
+        callback {distributionFreeformValuesWindow->setDistributionValues();}
+        tooltip {Save value} xywh {150 15 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Browser {distributionFreeformValuesWindow->listValues} {
+        callback {distributionFreeformValuesWindow->getDistributionValues();}
+        xywh {15 55 205 220} type Multi
+        class Fl_Multi_Browser
+      }
+      Fl_Button {} {
+        label Done
+        callback {distributionFreeformValuesWindow->closeDialog(true);}
+        tooltip Exit xywh {90 290 65 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window metaDistributionWindow {
+      label Metadistribution open
+      xywh {573 297 468 426} type Double box UP_BOX align 80
+      class MetaDistributionWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {metaDistributionWindow->closeDialog(true);}
+        tooltip {Save and exit} xywh {370 380 75 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {metaDistributionWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {370 346 75 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {} {
+        label {Upper Distribution}
+        xywh {245 36 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+      }
+      Fl_Box {} {
+        label {Lower Distribution}
+        xywh {25 36 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+      }
+      Fl_Box {metaDistributionWindow->viewZero} {
+        callback {metaDistributionWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Lower distribution} xywh {27 38 192 64}
+        class DistributionView
+      }
+      Fl_Box {metaDistributionWindow->viewOne} {
+        callback {metaDistributionWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Upper distribution} xywh {247 38 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        xywh {134 131 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Box {metaDistributionWindow->viewMixture} {
+        callback {metaDistributionWindow->showDialog(DIALOG_DISTRIBUTION, o);}
+        tooltip {Lower distribution} xywh {136 133 192 64} align 7
+        class DistributionView
+      }
+      Fl_Box {} {
+        label {@+23->}
+        xywh {110 107 30 28} labelcolor 16
+      }
+      Fl_Box {} {
+        label {@+21->}
+        xywh {324 107 30 28} labelcolor 16
+      }
+      Fl_Box {} {
+        xywh {134 226 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Box {metaDistributionWindow->viewMetaDistribution} {
+        tooltip {Lower distribution} xywh {136 228 192 64}
+        class MetaDistributionView
+      }
+      Fl_Box {} {
+        label {@+22->}
+        xywh {217 202 30 28} labelcolor 16
+      }
+      Fl_Box {} {
+        label Preview
+        xywh {135 322 196 68} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Box {metaDistributionWindow->viewPreview} {
+        tooltip {Lower distribution} xywh {137 324 192 64}
+        class DistributionView
+      }
+      Fl_Box {} {
+        label {@+22->}
+        xywh {218 297 30 28} labelcolor 16
+      }
+      Fl_Slider {metaDistributionWindow->sliderParameter} {
+        callback {metaDistributionWindow->setPreview(o->value());}
+        xywh {135 390 195 15} type Horizontal step 0.001 value 0.5 slider_size 0.060606
+      }
+      Fl_Button {} {
+        label {?}
+        callback {metaDistributionWindow->showDialog(DIALOG_MANUAL, "metadistributions.htm");}
+        xywh {440 9 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Box {} {
+        label Mixture
+        xywh {43 149 90 19} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Box {} {
+        label Distribution
+        xywh {43 166 90 19} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Box {} {
+        label Resulting
+        xywh {43 242 90 19} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+      Fl_Box {} {
+        label Metadistribution
+        xywh {23 259 110 19} labeltype ENGRAVED_LABEL labelfont 2 align 24
+      }
+    }
+    Fl_Window setValuesWindow {open
+      xywh {1344 354 175 109} type Double box UP_BOX align 80
+      class SetValuesWindow modal noborder visible
+    } {
+      Fl_Value_Input {setValuesWindow->inputValue} {
+        label Value
+        xywh {15 30 140 25} labeltype ENGRAVED_LABEL labelfont 2 align 5
+      }
+      Fl_Return_Button {} {
+        label Set
+        callback {setValuesWindow->closeDialog(true);}
+        tooltip {Save and exit} xywh {90 65 65 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {setValuesWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {15 65 65 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window multiBatchWindow {
+      label {Multibatch Simulation} open
+      xywh {877 169 441 254} type Double box UP_BOX align 80
+      class MultiBatchWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {multiBatchWindow->closeDialog(true);}
+        tooltip {Run multibatch simulation} xywh {355 211 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {multiBatchWindow->closeDialog(false);}
+        tooltip {Exit without starting simulation} xywh {280 211 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Group {} {
+        label {Multiple Batch Generation} open
+        xywh {20 32 405 159} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        Fl_Button {multiBatchWindow->btnSetBatchA} {
+          label {Set Batch (0, 0) ...}
+          callback {multiBatchWindow->showDialog(DIALOG_BATCH_SIMULATION_MULTIBATCH, &(multiBatchWindow->mb.batches[BATCH_A]));}
+          tooltip {Set starting batch for X and Y axis} xywh {95 76 135 30} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {multiBatchWindow->btnSetBatchB} {
+          label {Set Batch (0, 1) ...}
+          callback {multiBatchWindow->showDialog(DIALOG_BATCH_SIMULATION_MULTIBATCH, &(multiBatchWindow->mb.batches[BATCH_B]));}
+          tooltip {Set final batch for X axis} xywh {270 76 135 30} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {multiBatchWindow->btnSetBatchC} {
+          label {Set Batch (1, 0) ...}
+          callback {multiBatchWindow->showDialog(DIALOG_BATCH_SIMULATION_MULTIBATCH, &(multiBatchWindow->mb.batches[BATCH_C]));}
+          tooltip {Set final batch for Y axis} xywh {95 146 135 30} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[3]} {
+          label {@2>}
+          callback {multiBatchWindow->mb.batches[BATCH_C] = multiBatchWindow->mb.batches[BATCH_A];}
+          tooltip {Copy batch A to batch C} xywh {155 126 20 15} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[2]} {
+          label {@2<}
+          callback {multiBatchWindow->mb.batches[BATCH_A] = multiBatchWindow->mb.batches[BATCH_C];}
+          tooltip {Copy batch C to batch A} xywh {155 111 20 15} labelcolor 16
+        }
+        Fl_Spinner {multiBatchWindow->inputStepsAtoC} {
+          label {to (1,0)}
+          callback {multiBatchWindow->mb.stepsAtoC = o->value();}
+          tooltip {X value of batch simulation to preview} xywh {35 157 50 24} labeltype ENGRAVED_LABEL labelfont 2 align 1
+        }
+        Fl_Spinner {multiBatchWindow->inputStepsAtoB} {
+          label {Steps from (0, 0) to (0, 1)}
+          callback {multiBatchWindow->mb.stepsAtoB = o->value();}
+          tooltip {Y value of batch simulation to preview} xywh {360 42 50 24} labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Button {multiBatchWindow->btnSetBatchD} {
+          label {Set Batch (1, 1) ...}
+          callback {multiBatchWindow->showDialog(DIALOG_BATCH_SIMULATION_MULTIBATCH, &(multiBatchWindow->mb.batches[BATCH_D]));}
+          tooltip {Set final batch for Y axis} xywh {270 146 135 30} labeltype ENGRAVED_LABEL
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[1]} {
+          label {@>}
+          callback {multiBatchWindow->mb.batches[BATCH_B] = multiBatchWindow->mb.batches[BATCH_A];}
+          tooltip {Copy batch C to batch A} xywh {250 80 15 20} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[0]} {
+          label {@<}
+          callback {multiBatchWindow->mb.batches[BATCH_A] = multiBatchWindow->mb.batches[BATCH_C];}
+          tooltip {Copy batch C to batch A} xywh {235 80 15 20} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[5]} {
+          label {@2>}
+          callback {multiBatchWindow->mb.batches[BATCH_D] = multiBatchWindow->mb.batches[BATCH_B];}
+          tooltip {Copy batch A to batch C} xywh {330 126 20 15} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[4]} {
+          label {@2<}
+          callback {multiBatchWindow->mb.batches[BATCH_B] = multiBatchWindow->mb.batches[BATCH_D];}
+          tooltip {Copy batch C to batch A} xywh {330 111 20 15} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[7]} {
+          label {@>}
+          callback {multiBatchWindow->mb.batches[BATCH_D] = multiBatchWindow->mb.batches[BATCH_C];}
+          tooltip {Copy batch C to batch A} xywh {250 151 15 20} labelcolor 16
+        }
+        Fl_Button {multiBatchWindow->btnCopyBatch[6]} {
+          label {@<}
+          callback {multiBatchWindow->mb.batches[BATCH_C] = multiBatchWindow->mb.batches[BATCH_C];}
+          tooltip {Copy batch C to batch A} xywh {235 151 15 20} labelcolor 16
+        }
+        Fl_Light_Button {multiBatchWindow->btnOneDimension} {
+          label 1
+          callback {multiBatchWindow->inputStepsAtoC->value(1);
+multiBatchWindow->inputStepsAtoC->deactivate();
+multiBatchWindow->mb.stepsAtoC = 1;
+for(int i = 2; i < 8; ++i) multiBatchWindow->btnCopyBatch[i]->deactivate();
+multiBatchWindow->btnSetBatchC->deactivate();
+multiBatchWindow->btnSetBatchD->deactivate();}
+          tooltip {Change variables in only one dimension} xywh {110 42 35 24} type Radio labeltype ENGRAVED_LABEL labelfont 1
+        }
+        Fl_Light_Button {multiBatchWindow->btnTwoDimensions} {
+          label 2
+          callback {multiBatchWindow->mb.stepsAtoC = 10;
+multiBatchWindow->inputStepsAtoC->activate();
+multiBatchWindow->inputStepsAtoC->value(10);
+for(int i = 2; i < 8; ++i) multiBatchWindow->btnCopyBatch[i]->activate();
+multiBatchWindow->btnSetBatchC->activate();
+multiBatchWindow->btnSetBatchD->activate();}
+          tooltip {Change variables in two dimensions} xywh {145 42 35 24} type Radio value 1 labeltype ENGRAVED_LABEL labelfont 1
+        }
+        Fl_Box {} {
+          label {Dimensons:}
+          xywh {30 45 80 21} labeltype ENGRAVED_LABEL labelfont 2 align 24
+        }
+        Fl_Box {} {
+          label Steps
+          xywh {35 105 50 16} labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Box {} {
+          label {from (0, 0)}
+          xywh {30 123 60 16} labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Button {multiBatchWindow->btnPreview} {
+        label {Preview...}
+        callback {multiBatchWindow->showPreview();}
+        tooltip {Show how the batch simulation X, Y will look} xywh {20 211 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {Load...}
+        callback {multiBatchWindow->loadMultibatch();}
+        tooltip {Exit without starting simulation} xywh {120 211 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {Save...}
+        callback {multiBatchWindow->saveMultibatch();}
+        tooltip {Exit without starting simulation} xywh {195 211 70 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {?}
+        callback {multiBatchWindow->showDialog(DIALOG_MANUAL, "multibatch.htm");}
+        xywh {416 6 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window doubleProgressWindow {
+      label Progress open
+      xywh {584 528 747 40} type Double box UP_BOX align 80
+      class DoubleProgressWindow modal noborder visible
+    } {
+      Fl_Progress {doubleProgressWindow->barProgress} {
+        xywh {100 10 560 20} selection_color 12 labeltype ENGRAVED_LABEL labelfont 2 align 4
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {doubleProgressWindow->closeDialog(false);}
+        tooltip {Cancel simulation} xywh {665 10 70 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Output {doubleProgressWindow->outputSecondProgress} {
+        xywh {15 11 80 18}
+      }
+    }
+    Fl_Window manualWindow {
+      label {Laputa Manual} open
+      xywh {721 169 436 386} type Double box UP_BOX align 80
+      class ManualWindow modal size_range {400 400 0 0} visible
+    } {
+      Fl_Help_View {manualWindow->view} {
+        xywh {5 35 580 500}
+      }
+      Fl_Button {manualWindow->buttonBack} {
+        label {@<-}
+        callback {manualWindow->goBack();}
+        xywh {5 5 25 25} labelcolor 16
+      }
+      Fl_Button {manualWindow->buttonForward} {
+        label {@->}
+        callback {manualWindow->goForward();}
+        xywh {35 5 25 25} labelcolor 16
+      }
+      Fl_Button {manualWindow->buttonHome} {
+        label {@menu}
+        callback {manualWindow->goHome();}
+        xywh {65 5 25 25} labelcolor 16
+      }
+      Fl_Output {manualWindow->outputFile} {
+        xywh {95 6 490 24}
+      }
+    }
+    Fl_Window degreeDistributionWindow {
+      label {Degree Distribution} open
+      xywh {512 139 365 470} type Double box UP_BOX align 80
+      class DegreeDistributionWindow modal noborder visible
+    } {
+      Fl_Tabs {} {open
+        xywh {20 10 325 395}
+      } {
+        Fl_Group {} {
+          label In open
+          tooltip {Lower limit at which to fit curve} xywh {20 35 325 370} labeltype ENGRAVED_LABEL labelfont 2 align 5
+        } {
+          Fl_Box {} {
+            xywh {73 49 260 132} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+          }
+          Fl_Box {degreeDistributionWindow->view[DD_IN]} {
+            tooltip {Histogram of number of inquirers having specific number of in links} xywh {75 51 256 128}
+            class StatisticsView
+          }
+          Fl_Choice {degreeDistributionWindow->choiceFunction[DD_IN]} {
+            label {Fit as}
+            callback {degreeDistributionWindow->calculateFit(DD_IN, o->value());} open
+            xywh {70 230 130 22} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+          } {}
+          Fl_Value_Output {degreeDistributionWindow->outputError[DD_IN]} {
+            label Error
+            tooltip {Mean squared error of curve} xywh {240 231 95 20} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_IN][4]} {
+            label 1
+            xywh {28 49 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_IN][0]} {
+            label 0
+            xywh {28 166 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_IN][2]} {
+            label {0.5}
+            xywh {28 106 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_IN][1]} {
+            label {0.25}
+            xywh {28 138 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_IN][3]} {
+            label {0.75}
+            xywh {28 77 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_IN][0]} {
+            label 0
+            xywh {70 184 45 16} labelsize 12 align 20
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_IN][4]} {
+            label 0
+            xywh {295 184 42 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_IN][2]} {
+            label 0
+            xywh {178 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_IN][1]} {
+            label 0
+            xywh {116 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_IN][3]} {
+            label 0
+            xywh {241 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {} {
+            xywh {31 258 304 84} box DOWN_BOX
+          }
+          Fl_Box {degreeDistributionWindow->boxFormula[DD_IN]} {
+            xywh {33 260 300 80} box FLAT_BOX color 7
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_IN][0]} {
+            label {a =}
+            xywh {105 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_IN][1]} {
+            label {b =}
+            xywh {240 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_IN][2]} {
+            label {c =}
+            xywh {105 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_IN][3]} {
+            label {d =}
+            xywh {240 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Slider {degreeDistributionWindow->sliderCutoff[DD_IN]} {
+            label Cutoff
+            callback {degreeDistributionWindow->setCutoff(DD_IN, o->value());}
+            xywh {70 205 230 20} type Horizontal labeltype ENGRAVED_LABEL labelfont 2 align 4 maximum 100 step 1 textsize 14
+          }
+          Fl_Button {} {
+            label Fit
+            callback {degreeDistributionWindow->fitToCutoff(DD_IN, degreeDistributionWindow->sliderCutoff[DD_IN]->value());}
+            tooltip {Find best curve for this cutoff} xywh {305 205 30 20} labeltype ENGRAVED_LABEL
+          }
+        }
+        Fl_Group {} {
+          label Out open
+          xywh {20 35 325 370} labeltype ENGRAVED_LABEL labelfont 2 align 5 hide
+        } {
+          Fl_Box {} {
+            xywh {73 49 260 132} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+          }
+          Fl_Box {degreeDistributionWindow->view[DD_OUT]} {
+            tooltip {Histogram of number of inquirers having specific number of out links} xywh {75 51 256 128}
+            class StatisticsView
+          }
+          Fl_Choice {degreeDistributionWindow->choiceFunction[DD_OUT]} {
+            label {Fit as}
+            callback {degreeDistributionWindow->calculateFit(DD_OUT, o->value());} open
+            xywh {70 230 130 22} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+          } {}
+          Fl_Value_Output {degreeDistributionWindow->outputError[DD_OUT]} {
+            label Error
+            tooltip {Mean squared error of curve} xywh {240 231 95 20} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_OUT][4]} {
+            label 1
+            xywh {28 49 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_OUT][0]} {
+            label 0
+            xywh {28 166 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_OUT][2]} {
+            label {0.5}
+            xywh {28 106 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_OUT][1]} {
+            label {0.25}
+            xywh {28 138 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_OUT][3]} {
+            label {0.75}
+            xywh {28 77 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_OUT][0]} {
+            label 0
+            xywh {70 184 45 16} labelsize 12 align 20
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_OUT][4]} {
+            label 0
+            xywh {295 184 42 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_OUT][2]} {
+            label 0
+            xywh {178 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_OUT][1]} {
+            label 0
+            xywh {116 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_OUT][3]} {
+            label 0
+            xywh {241 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {} {
+            xywh {31 258 304 84} box DOWN_BOX
+          }
+          Fl_Box {degreeDistributionWindow->boxFormula[DD_OUT]} {
+            xywh {33 260 300 80} box FLAT_BOX color 7
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_OUT][0]} {
+            label {a =}
+            xywh {105 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_OUT][1]} {
+            label {b =}
+            xywh {240 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_OUT][2]} {
+            label {c =}
+            xywh {105 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_OUT][3]} {
+            label {d =}
+            xywh {240 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Slider {degreeDistributionWindow->sliderCutoff[DD_OUT]} {
+            label Cutoff
+            callback {degreeDistributionWindow->setCutoff(DD_OUT, o->value());}
+            tooltip {Lower limit at which to fit curve} xywh {70 205 230 20} type Horizontal labeltype ENGRAVED_LABEL labelfont 2 align 4 maximum 100 step 1 textsize 14
+          }
+          Fl_Button {} {
+            label Fit
+            callback {degreeDistributionWindow->fitToCutoff(DD_OUT, degreeDistributionWindow->sliderCutoff[DD_OUT]->value());}
+            tooltip {Find best curve for this cutoff} xywh {305 205 30 20} labeltype ENGRAVED_LABEL
+          }
+        }
+        Fl_Group {} {
+          label Combined open
+          xywh {20 35 325 370} labeltype ENGRAVED_LABEL labelfont 2 align 5 hide
+        } {
+          Fl_Box {} {
+            xywh {73 49 260 132} box DOWN_BOX color 7 labeltype ENGRAVED_LABEL labelfont 2 align 1
+          }
+          Fl_Box {degreeDistributionWindow->view[DD_TOTAL]} {
+            tooltip {Histogram of number of inquirers having specific number of in or out links} xywh {75 51 256 128}
+            class StatisticsView
+          }
+          Fl_Choice {degreeDistributionWindow->choiceFunction[DD_TOTAL]} {
+            label {Fit as}
+            callback {degreeDistributionWindow->calculateFit(DD_TOTAL, o->value());} open
+            xywh {70 230 130 22} down_box BORDER_BOX labeltype ENGRAVED_LABEL labelfont 2
+          } {}
+          Fl_Value_Output {degreeDistributionWindow->outputError[DD_TOTAL]} {
+            label Error
+            tooltip {Mean squared error of curve} xywh {240 231 95 20} labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_TOTAL][4]} {
+            label 1
+            xywh {28 49 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_TOTAL][0]} {
+            label 0
+            xywh {28 166 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_TOTAL][2]} {
+            label {0.5}
+            xywh {28 106 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_TOTAL][1]} {
+            label {0.25}
+            xywh {28 138 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelYAxis[DD_TOTAL][3]} {
+            label {0.75}
+            xywh {28 77 45 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_TOTAL][0]} {
+            label 0
+            xywh {70 184 45 16} labelsize 12 align 20
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_TOTAL][4]} {
+            label 0
+            xywh {295 184 42 16} labelsize 12 align 24
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_TOTAL][2]} {
+            label 0
+            xywh {178 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_TOTAL][1]} {
+            label 0
+            xywh {116 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {degreeDistributionWindow->labelXAxis[DD_TOTAL][3]} {
+            label 0
+            xywh {241 184 45 16} labelsize 12 align 16
+          }
+          Fl_Box {} {
+            xywh {31 258 304 84} box DOWN_BOX
+          }
+          Fl_Box {degreeDistributionWindow->boxFormula[DD_TOTAL]} {
+            xywh {33 260 300 80} box FLAT_BOX color 7
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_TOTAL][0]} {
+            label {a =}
+            xywh {105 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_TOTAL][1]} {
+            label {b =}
+            xywh {240 347 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_TOTAL][2]} {
+            label {c =}
+            xywh {105 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Output {degreeDistributionWindow->outputParameter[DD_TOTAL][3]} {
+            label {d =}
+            xywh {240 372 95 20} labelfont 10 labelsize 16
+          }
+          Fl_Value_Slider {degreeDistributionWindow->sliderCutoff[DD_TOTAL]} {
+            label Cutoff
+            callback {degreeDistributionWindow->setCutoff(DD_TOTAL, o->value());}
+            tooltip {Lower limit at which to fit curve} xywh {70 205 230 20} type Horizontal labeltype ENGRAVED_LABEL labelfont 2 align 4 maximum 100 step 1 textsize 14
+          }
+          Fl_Button {} {
+            label Fit
+            callback {degreeDistributionWindow->fitToCutoff(DD_TOTAL, degreeDistributionWindow->sliderCutoff[DD_TOTAL]->value());}
+            tooltip {Find best curve for this cutoff} xywh {305 205 30 20} labeltype ENGRAVED_LABEL
+          }
+        }
+      }
+      Fl_Return_Button {} {
+        label Close
+        callback {degreeDistributionWindow->closeDialog(true);}
+        xywh {275 430 75 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {?}
+        callback {statisticsWindow->showDialog(DIALOG_MANUAL, "degreedistributions.htm");}
+        xywh {335 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window expressionWindow {open
+      xywh {827 386 536 162} type Double box UP_BOX
+      class ExpressionWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label OK
+        callback {if(expressionWindow->tabs->value() == expressionWindow->groupPDF) {
+	if(expressionWindow->inputFormulaPDF->validateFormula()) expressionWindow->closeDialog(true);
+	else fl_alert("Error in parsing PDF expression: \\n%s", expressionWindow->inputFormulaPDF->errorMessage());	
+}
+else {
+	if(expressionWindow->inputFormulaCDF->validateFormula()) expressionWindow->closeDialog(true);
+	else fl_alert("Error in parsing CDF expression: \\n%s", expressionWindow->inputFormulaCDF->errorMessage());	
+}}
+        tooltip {Exit and save changes} xywh {440 125 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {expressionWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {345 125 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {?}
+        callback {distributionWindow->showDialog(DIALOG_MANUAL, "expressions.htm");}
+        xywh {505 9 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Tabs {expressionWindow->tabs} {open
+        xywh {10 10 515 105}
+      } {
+        Fl_Group {expressionWindow->groupPDF} {
+          label {By Density / Mass Function} open
+          xywh {10 35 515 80} labeltype ENGRAVED_LABEL labelfont 2
+        } {
+          Fl_Text_Editor {expressionWindow->inputFormulaPDF} {
+            label {P(t) = }
+            xywh {90 45 425 60} selection_color 7 labeltype ENGRAVED_LABEL labelfont 8 labelsize 16 align 7 textfont 8 textsize 16
+            class ExpressionField
+          }
+        }
+        Fl_Group {expressionWindow->groupCDF} {
+          label {By Cumulative Density Function} open
+          xywh {10 35 515 80} labeltype ENGRAVED_LABEL labelfont 2 hide
+        } {
+          Fl_Text_Editor {expressionWindow->inputFormulaCDF} {
+            label {P([0, t]) = }
+            xywh {90 45 425 60} selection_color 7 labeltype ENGRAVED_LABEL labelfont 8 labelsize 16 align 7 textfont 8 textsize 16
+            class ExpressionField
+          }
+        }
+      }
+    }
+    Fl_Window exportStatistics {open
+      xywh {1035 361 491 261} type Double box UP_BOX
+      class ExportStatisticsWindow modal noborder visible
+    } {
+      Fl_Return_Button {} {
+        label {Save...}
+        callback {if(exportStatisticsWindow->save()) exportStatisticsWindow->closeDialog(true);}
+        tooltip {Save statistics in chosen format} xywh {383 215 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {exportStatisticsWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {290 215 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Group {} {
+        label Columns open
+        xywh {20 30 140 165} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[0][0]} {
+          label Inquirers
+          callback {exportStatisticsWindow->choose(0, 0);}
+          xywh {28 38 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[0][1]} {
+          label Time
+          callback {exportStatisticsWindow->choose(0, 1);}
+          xywh {28 63 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[0][2]} {
+          label Trials
+          callback {exportStatisticsWindow->choose(0, 2);}
+          xywh {28 88 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputFrom[0]} {
+          label From
+          callback {if(o->value() > exportStatisticsWindow->inputTo[0]->value()) exportStatisticsWindow->inputTo[0]->value(o->value());}
+          xywh {35 131 50 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputTo[0]} {
+          label To
+          callback {if(o->value() < exportStatisticsWindow->inputFrom[0]->value()) exportStatisticsWindow->inputFrom[0]->value(o->value());}
+          xywh {90 131 55 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Check_Button {exportStatisticsWindow->buttonAverage[0]} {
+          label Average
+          xywh {30 165 100 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Group {} {
+        label Rows open
+        xywh {175 30 140 165} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[1][0]} {
+          label Inquirers
+          callback {exportStatisticsWindow->choose(1, 0);}
+          xywh {183 38 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[1][1]} {
+          label Time
+          callback {exportStatisticsWindow->choose(1, 1);}
+          xywh {183 63 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[1][2]} {
+          label Trials
+          callback {exportStatisticsWindow->choose(1, 2);}
+          xywh {183 88 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputFrom[1]} {
+          label From
+          callback {if(o->value() > exportStatisticsWindow->inputTo[1]->value()) exportStatisticsWindow->inputTo[1]->value(o->value());}
+          xywh {190 131 50 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputTo[1]} {
+          label To
+          callback {if(o->value() < exportStatisticsWindow->inputFrom[1]->value()) exportStatisticsWindow->inputFrom[1]->value(o->value());}
+          xywh {245 131 55 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Check_Button {exportStatisticsWindow->buttonAverage[1]} {
+          label Final
+          xywh {185 165 100 20} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Group {} {
+        label Sheets open
+        xywh {330 30 140 165} box ENGRAVED_FRAME labeltype ENGRAVED_LABEL labelfont 2
+      } {
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[2][0]} {
+          label Inquirers
+          callback {exportStatisticsWindow->choose(2, 0);}
+          xywh {338 38 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[2][1]} {
+          label Time
+          callback {exportStatisticsWindow->choose(2, 1);}
+          xywh {338 63 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Round_Button {exportStatisticsWindow->buttonVariable[2][2]} {
+          label Trials
+          callback {exportStatisticsWindow->choose(2, 2);}
+          xywh {338 88 110 20} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputFrom[2]} {
+          label From
+          callback {if(o->value() > exportStatisticsWindow->inputTo[2]->value()) exportStatisticsWindow->inputTo[2]->value(o->value());}
+          xywh {345 131 50 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Value_Input {exportStatisticsWindow->inputTo[2]} {
+          label To
+          callback {if(o->value() < exportStatisticsWindow->inputFrom[1]->value()) exportStatisticsWindow->inputFrom[1]->value(o->value());}
+          xywh {400 131 55 24} labeltype ENGRAVED_LABEL labelfont 2 align 5 minimum 1 maximum 100 step 1
+        }
+        Fl_Check_Button {exportStatisticsWindow->buttonAverage[2]} {
+          label Average
+          xywh {340 165 100 20} down_box DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+        }
+      }
+      Fl_Button {} {
+        label {?}
+        callback {multiBatchWindow->showDialog(DIALOG_MANUAL, "exportstatistics.htm");}
+        xywh {465 5 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+    }
+    Fl_Window exportTopologyWindow {
+      label {Export Topology} open selected
+      xywh {1045 371 260 249} type Double box UP_BOX align 65
+      class ExportTopologyWindow modal noborder size_range {260 249 260 249} visible
+    } {
+      Fl_Return_Button {} {
+        label {Save...}
+        callback {if(exportTopologyWindow->save()) exportTopologyWindow->closeDialog(true);}
+        tooltip {Save statistics in chosen format} xywh {155 200 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {exportTopologyWindow->closeDialog(false);}
+        tooltip {Exit without saving} xywh {25 200 85 25} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Button {} {
+        label {?}
+        callback {multiBatchWindow->showDialog(DIALOG_MANUAL, "exporttopologies.htm");}
+        xywh {230 10 20 20} labeltype ENGRAVED_LABEL labelfont 1
+      }
+      Fl_Value_Input {exportTopologyWindow->fieldMinListenChance} {
+        label {Min. listen chance:}
+        xywh {150 91 53 19} labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Round_Button {exportTopologyWindow->buttonWeightNone} {
+        label None
+        callback {exportTopologyWindow->buttonWeightListenChance->value(0);
+exportTopologyWindow->buttonWeightTrust->value(0);
+o->value(1);}
+        xywh {90 23 64 15} down_box ROUND_DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Round_Button {exportTopologyWindow->buttonWeightListenChance} {
+        label {Listen Chance}
+        callback {exportTopologyWindow->buttonWeightNone->value(0);
+exportTopologyWindow->buttonWeightTrust->value(0);
+o->value(1);}
+        xywh {90 43 120 15} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Round_Button {exportTopologyWindow->buttonWeightTrust} {
+        label {Expected Trust}
+        callback {exportTopologyWindow->buttonWeightNone->value(0);
+exportTopologyWindow->buttonWeightListenChance->value(0);
+o->value(1);}
+        xywh {90 63 130 15} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {} {
+        label {Weights:}
+        xywh {25 22 70 17} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Box {} {
+        xywh {23 123 217 1} box THIN_DOWN_BOX
+      }
+      Fl_Round_Button {exportTopologyWindow->buttonSingleFile} {
+        label {A single file}
+        callback {exportTopologyWindow->buttonFolder->value(0);
+o->value(1);}
+        xywh {90 135 105 15} down_box ROUND_DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Round_Button {exportTopologyWindow->buttonFolder} {
+        label {A folder of files}
+        callback {exportTopologyWindow->buttonSingleFile->value(0);
+o->value(1);}
+        xywh {90 155 120 15} down_box ROUND_DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+      }
+      Fl_Box {exportTopologyWindow->labelSaveAs} {
+        label {Save As:}
+        xywh {25 134 70 17} labeltype ENGRAVED_LABEL labelfont 2 align 20
+      }
+      Fl_Box {} {
+        xywh {22 182 218 2} box THIN_DOWN_BOX
+      }
+    }
+  }
+}

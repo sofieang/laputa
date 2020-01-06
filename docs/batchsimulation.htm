@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Batch Simulations</h1>
+
+<p>A Batch simulation is a collection of simulations, run from a (possibly randomized) initial state for a specific number of steps, while statistics is collected. Since Laputa's model is a stochastic one, it is only batch simulations that can give enough information to draw stable conclusions from.</p>
+
+<p>The <i>trials</i> field is used to specify the number of simulations that the batch simulator is to run and average over. The batch simulator allows each such simulation to consist of up to four <i>stages</i>, which are executed in succession. Small triangular buttons between the stage selection buttons are used to copy all parameters of one stage to another. The number of steps in each stage are set in the <i>Stage</i> tab. Before each stage, the society's properties are modified according to the settings in the other tabs:</p>
+
+  <p>
+<ul>
+<li><a href="tabnetwork.htm">Network</a></li>
+<li><a href="tabinquirers.htm">Inquriers</a></li>
+<li><a href="tablinks.htm">Links</a></li>
+<li><a href="evalue.htm">E-Values</a></li>
+<li><a href="tabrecord.htm">Record</a></li>
+</ul>
+  </p>
+  
+<p> Of these, the E-Value and the Record tab are common to all stages, while the others pertain to the specific stage selected on the left.</p>
+  
+<p>Some of the parameters in the Batch window (Starting Belief, Inquiry Accuracy, Inquiry Trust, Listen Chance, Threshold and Trust) correspond directly to properties of <a href="inquirers.htm">inquirers</a> and <a href="links.htm">links</a>, and are used to determine starting values of these, unless overridden by template links' or inquirers' <a href="simulationparameters.htm">simulation parameters</a>. All of these are represented by various forms of <a href="distributions.htm">distributions</a> or <a href="metadistributions.htm">metadistributions</a>.
+
+<p>There are also buttons to save and load settings for the batch simulation windows, and the same settings can be loaded and saved from the <a href="generation.htm">Generate Random Society</a> window as well, whose layout is very similar to that of the batch window.</p>
+
+  <p>When a batch simulation has finished, the <a href="statistics.htm">statistics</a> window is opened to display the results.
+</p>
+  
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

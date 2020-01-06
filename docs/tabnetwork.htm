@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>The Network tab</h1>
+
+  <p>Each society is created in 3 stages:</p>
+  <p>
+    <ol>
+      <li>
+		A number of inquirers are created, with properties as determined from the <a href="tabinquirers.htm">inquirers</a> tab.
+      </li>
+      <li>
+        A number of links between these inquirers are added, with properties determined by the <a href="tablinks.htm">links</a> tab.
+      </li>
+      <li>Finally, a number of inquirers are added one by one, with links from or to those inquirers already in the society.</li>
+    </ol>
+  </p>
+  
+<p>The network tab determines the network structure of a random society, i.e. the number of inquriers, and how they are linked to one another. It is separated into two parts: population and number of links.</p>
+
+ <h4>Population</h4>
+
+  <p>This part of the network tab determines the total number of inquirers, as well as the proportion of inquirers added one by one in step 3, as opposed to added all at one in step 1. It contains two controls:</p>
+
+  <p>
+    <b>Population:</b> A probability distribution that determines how many inquirers in total that the generated society will have. The check box <i>Create</i>, if ticked, ensures that an entirely new society will be created. If unticked, no new inquirers will be created in this stage. 
+  </p>
+
+  <p>
+    <b>Growth:</b> When the <i>On</i> check box is ticked, stage 3 is invoked. This means that for some part of the population determined by the population probability distribution, that part will be added one by one rather than in step 1. There are sliders to determine how large a part of the society is to be grown this way, as well as the balance of links to the new inquirers to add as opposed to links from them. Setting the balance slider to 0 will result in the new inquirers, when added, only being listeners, while setting it to 1 results in them having links going only out of them.</p>
+
+  <h4>Number of links</h4>
+
+  <p>This part determines which inquirers are linked to which. It also contains two controls: </p>
+
+  <p>
+    <b>Number of links:</b> A probability distribution that determines how many links in total that the generated society will have. This can be applied in a total of five ways, as selected from the two popup menus below the distribution view.
+	
+	  <table border = "0">
+    <tr>
+      <td><i>Density / in total:</i></td>
+      <td>A number [0, 1] is picked from the distribution, and multiplied with the maximal possible number of links.</td>
+    </tr>
+    <tr>
+      <td><i>Density / per inquirer:</i></td>
+      <td>A number [0, 1] is picked for each inquirer in the society, and multiplied with the maximal possible number of links to that inquirer. These are added up.</td>
+    </tr>
+    <tr>
+      <td><i>Density / per inquirer squared:</i></td>
+      <td>A number [0, 1] is picked for each ordered pair of inquirers, except those on the diagonal. These are added up. </td>
+    </tr>
+	<tr>
+      <td><i>Number / in total:</i></td>
+      <td>The number of links is as picked in the distribution, but numbers above <i>n</i>(<i>n</i> + 1), where <i>n</i> is the number of inquirers, are clamped to this number. </td>
+    </tr>
+	<tr>
+      <td><i>Number / per inquirer:</i></td>
+      <td>The number of links is picked for each inquirer and added up, but numbers above <i>n</i>(<i>n</i> + 1), where <i>n</i> is the number of inquirers, are clamped to this number.</td>
+    </tr>
+
+  </table>
+		The check box <i>Create</i>, if ticked, ensures that an entirely new set of links will be created, and the ones of the previous stage removed. If unticked, no new links will be created in this stage. The check box <i>Limit links to one per pair</i>, if unchecked, will allow the same link to be added more than once. The result of such an addition is determined as a mean of the properties of the new and the old link, with the exception of the listen chance, which is given as P(lc<sub>new</sub>) + P(lc<sub>old</sub>) - P(lc<sub>new</sub>)P(lc<sub>old</sub>).
+  </p>
+
+  <p>
+    <b>Weights:</b> When a link is added in stage 2, the target is picked randomly and uniformly from the current population. However, in both step 2 and step 3, the link's source is determined by a <i>weighted</i> random distribution. The <i>Base</i> weight is that assigned to each inquirer by default. Each of the others is then added when appropriate. 
+ 
+  <table border = "0">
+    <tr>
+      <td><i>Symmetry:</i></td>
+      <td>Additional weight added to an inquirer if that inquirer already has a link to it <i>from</i> the target.</td>
+    </tr>
+    <tr>
+      <td><i>Transitivity:</i></td>
+      <td>Additional weight added to an inquirer if that inquirer already has a link to some inquirer that has a link to the target.</td>
+    </tr>
+    <tr>
+      <td><i>Clustering:</i></td>
+      <td>Additional weight added to an inquirer for each link it already has that goes from it. </td>
+    </tr>
+  </table>
+
+  </p>
+
+  <br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

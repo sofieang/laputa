@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Probability Distributions</h1>
+
+<p>Probability distributions are used more or less everywhere in Laputa, and come in two kinds: distributions, which determine single values, and <a href="metadistributions.htm">metadistributions</a>, which determine entire probability distributions (most importantly, trust functions).</p>
+
+<p>For editing and creating new distributions, the distribution dialog is used. This dialog contains an area where the distribution is displayed and can be changed, as well as sliders and buttons for adjusting parameters. A distribution is determined by its probability density function, which is a linear combination of 5 <i>aspects</i>:</p>
+
+<p><b>Point:</b> Always gives the same value, set by the slider or by clicking in the display.</p>
+
+<p><b>Interval:</b> Gives a value in the interval indicated, with any value in that interval being equally likely.</p>
+
+<p><b>Normal:</b> Gives a value randomized from a truncated normal distribution. The mean and standard deviation are adjustable.</p>
+
+<p><b>Beta:</b> Gives a value randomized from a beta distribution. The parameters <i>alpha</i> and <i>beta</i> are adjustable, or the distribution can be set by its mean and standard deviation.</p>
+
+<p><b>Freeform:</b> Allows the user to draw or specify an arbitrary distribution of her own. This is really a piecewise-linear distribution, with the number of pieces determined by the <i>resolution</i> field in the bottom right of the dialog. Buttons are supplied to rotate the distribution left or right, or to set its values one by one, or to the result of a mathematical expression through the <a href="expressions.htm">expression</a> dialog.</p>
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

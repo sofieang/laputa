@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Epistemic Value</h1>
+
+<p>Laputa automatically calculates the <i>epistemic value</i> of societies, both when simulated one-by-one, and when simulated in batch. How it is calculated depends on the epistemic value rules, which are accessible from the simulation and batch simulation dialogs.</p>
+
+<p>The Epistemic Value Rules dialog allows setting two aspects of the calculation: how a society's e-value is averaged over inquirers, and how it is averaged over time. For inquirers, the following options are available:</p>
+
+<p><b>Average:</b> The e-value of a society at a moment is the average of the credences of the inquirers included in the statistics.</p>
+
+<p><b>Majority:</b> The e-value of a society at a moment is set to 1 if a majority believe <i>p</i>, 0 if a majority believe not-<i>p</i>, and 0.5 otherwise. How many percent of the inquirers are required in order for it to count as a majority is determined by the field "req. %", and how high a credence in <i>p</i> an inquirer must have to count as believing <i>p</i> is determined by the fiels "cert. %".</p>
+
+<p>There are three methods available for averaging epistemic value over a simulation run's time:</p>
+
+<p><b>Final</b> The e-value is taken to be that of the final moment of the society.</p>
+
+<p><b>Average</b> The e-value is taken to be the average of that of the society at any time.</p>
+
+<p><b>Attentuated</b> This works like "average", but allows specification of an <i>attentuation factor</i>, which can be used to make earlier or later time steps count more than the others. It produces a <i>weighted</i> average, where each time step's weight is the attentuation factor specified in the field "att. %", raised to the step number. Setting it to 90%, for example, makes step 2 count as 90% as important as step 1, step 3 as 90% as important as step 2, etc.</p>
+
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

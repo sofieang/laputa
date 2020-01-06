@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Epistemic Value</h1>
+
+<p>Laputa automatically calculates the <i>epistemic value</i> of societies, both when simulated one-by-one, and when simulated in batch. How it is calculated depends on the epistemic value rules, which are accessible from the batch simulation dialog.</p>
+
+<p>The Epistemic Value Rules dialog allows setting two aspects of the calculation: how a society's e-value is averaged over inquirers, and what utilities are assigned to which degrees of belief. For averaging over inquirers, the following options are available:</p>
+
+<p><b>Individually:</b> First the e-value of each individual inquirer's degree of belief is calculated, and then this e-value is averaged over the inquirers included in the statistics. The individual e-values are interpolated linearly from the values specified on the right. Setting <i>Believe p</i> to <i>a</i>, <i>Believe p V ~p</i> to <i>b</i>, and <i>Believe ~p</i> to <i>c</i> results in the E-value of the degree of belief <i>x</i> being </p>
+<p align="center"><i>EV(x) = 2(x - 0.5)a + 2(1 - x)b</i></p>
+<p>for <i>x &gt; 0.5</i>,</p>
+<p align="center"><i>EV(x) = 2xb + 2(0.5 - x)c</i></p>
+<p>for <i>x &lt; 0.5</i>, and</p>
+<p align="center"><i>EV(x) = b</i></p>
+<p>for <i>x = 0.5</i>.</p>
+
+<p><b>To Average:</b> First the average degree of belief in <i>p</p> among the inquirers included in the statistics is calculated, and then the e-value of this degree of belief is calculated. The E-value is interpolated from the parameters to the right as in the individual calculation.</p>
+
+<p><b>To Majority:</b> The E-value of a society at a moment is set to 1 if a majority believe <i>p</i>, 0 if a majority believe not-<i>p</i>, and 0.5 otherwise. How many percent of the inquirers are required in order for it to count as a majority is determined by the field "req. %", and how high a credence in <i>p</i> an inquirer must have to count as believing <i>p</i> is determined by the fields "cert. %".</p>
+
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Metadistributions</h1>
+
+<p>Metadistributions are distributions over distributions. Since a distribution, in itself, is such a high-dimensional object, Laputa uses a highly simplified approach to metadistributions to make them manageable. Essentially, all metadistributions pick distributions as a linear combination of two distributions called the <i>lower</i> and the <i>upper</i>.</p>
+
+  <p>The <i>mixture</i> distribution is used to determine the weight randomly. A point mixture distribution with value 0 would give the lower distribution all the time, and one with value 1 would give the upper distribution all the time. An interval mixture distribution [0, 1] gives any linear combination of the upper and the lower distribution with equal probability.
+</p>
+
+  <p>Combined distributions are created by linearly interpolating the individual parameters of each aspect individually, as well as the weights of the aspects themselves. Thus setting the lower and upper distribution to, say, pure normal distributions, will give results that are always pure normal distributions themselves, with means and standard deviations between those of the lower and the upper distribution. By contrast, setting the lower and the upper distribution to pure freeform distrbutions will make the resulting distributions freeform, where the PDF value at each point is a linear combination of the same value at that point in the upper and the lower distribution.</p>
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

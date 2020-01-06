@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Batch Simulations</h1>
+
+<p>A Batch simulation is a collection of simulations, run from a (possibly randomized) initial state for a specific number of steps, while statistics is collected. Since Laputa's model is a stochastic one, it is only batch simulations that can give enough information to draw stable conclusions from. In order for this to be possible, Laputa calculates confidence intervals, and also allows the <a href="export.htm">export</a> of statistics in a form readable by, for instance, Excel.</p>
+
+<p>The batch simulator can work in two different modes, depending on whether it is set to randomize the population or not. When varying population, minimum and maximum number of inquirers can be set, and every simulation is started from a completely random society, with values determined by the parameters of the Batch Simulation window. When population is not varied, the batch simulator begins each simulation with the current society, as it was when the batch simulation was started. This society is then varied randomly, as specified in the parameters. Finally, the simulation is started, and statistics collected.</p>
+
+<p>Some of the parameters in the Batch window (Starting Belief, Inquiry Accuracy, Inquiry Trust, Listen Chance, Threshold and Trust) correspond directly to properties of <a href="inquirers.htm">inquirers</a> and <a href="links.htm">links</a>, and are used to determine starting values of these, unless overridden by individual links' or inquirers' <a href="simulationparameters.htm">simulation parameters</a>. All of these are represented by various forms of <a href="distributions.htm">distributions</a>. The other parameters accessible are as follows.</p> 
+
+<p><b>Link Chance:</b> When set to vary this, links are randomized for every new simulation. The link chance is the probability that any order pair a, b of inquirers has a link a->b.</p>
+
+<p><b>Number of Trials:</b> The number of simulations to run. More simulations gives more certain statistics.</p>
+
+<p><b>Steps per Trial:</b> The number of steps to run each simulation.</p>
+
+<p><b>Random Seed:</b> Controls the pseudorandom number generator. Starting two batch simulations with the same initial state, parameters, and random seed give identical results.</p>
+
+<p><b>Epistemic Value Rules:</b> Sets up how <a href="evalue.htm">e-value</a> is to be calculated.</p>
+
+<p><b>Statistics to Record:</b> Controls what kind of statistics to collect. This mainly affects what data it is possible to <a href="export.htm">export</a>.</p>
+
+<p>There are also options to save and load settings for the batch simulation windows, and the same settings can be loaded and saved from the Randomize Society window as well, whose layout is very similar to that of the batch window.</p>
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

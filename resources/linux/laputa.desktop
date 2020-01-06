@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Laputa
+Comment=A laboratory for social epistemology
+Exec=laputa
+Icon=laputa
+Type=Application
+Terminal=False

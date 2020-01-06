@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>The Degree Distribution dialog</h1>
+
+<p>This dialog lets the user inspect the degree distribution of either the current network, or the mean degree distribution of the networks generated during a batch simulation. Since the networks of Laputa are directed, there are three distributions: that of ingoing edges, that of outgoing edges, and the combined sum of these.</p>
+
+<p>Laputa supports fitting these distributions to curves, in order to find statistics of the networks it generates. Since such statistics are often only applied to the tail end of a distribution, a lower cutoff is specifiable through a slider. The <b>Fit</b> button selects the type of curve that best fits at the current cutoff. The specific curves are also selectable through a popup menu. At the moment, Laputa allows fitting the distribution to any of the following probability distribution types:</p>
+
+   <p>
+  <table border = "0">
+    <tr>
+      <td><i>Normal:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Normal_distribution">normal distribution</a>, with adjustable mean and standard deviation. Useful for modeling the result of independent events.</td>
+    </tr>
+	<tr>
+      <td><i>Poisson:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Poisson_distribution">Poisson distribution</a>, with adjustable parameter. Useful for modeling the result of independent events.</td>
+    </tr>
+		<tr>
+      <td><i>Yule-Simon:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Yule–Simon_distribution">Yule-Simon</a> distribution, with adjustable shape parameter. The tail of a Yule-Simon distribution resembles a power law.</td>
+    </tr>
+	</tr>
+		<tr>
+      <td><i>Zipf-Mandelbrot:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Zipf-Mandelbrot_law">Zipf-Mandelbrot</a> distribution, with three adjustable parameters. This is a typical form of power law, often used to model "rich-get-richer" type of processes.</td>
+    </tr>
+	</tr>
+		<tr>
+      <td><i>Generalised Extreme Value:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Generalized_extreme_value_distribution">Generalised extreme value</a> distribution, with three adjustable parameters. This is a versatile form of distribution which includes the Frechet, Weibull and Gumbel families of distributions.</td>
+    </tr>
+	</tr>
+		<tr>
+      <td><i>Generalised Beta Prime:</i></td>
+      <td>A <a href="http://en.wikipedia.org/wiki/Beta_prime_distribution">Generalised Beta Prime</a> distribution, with four adjustable parameters. This is a versatile form of distribution which includes several others.</td>
+    </tr>
+  </table>
+
+  </p>
+
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>

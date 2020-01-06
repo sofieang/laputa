@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Laputa Manual</title>
+</head>
+<body>
+
+<h1>Links</h1>
+
+<p>A link describes how one inquirer may recaive information from another, and how she treats this information. Like <a href="inquirers.htm">inquirers</a>, links come in <i>concrete</i> and <i>template></i> versions. Also, like the inquirer, a template link is interpretable as a <i>type</i> of link, raher than a specifically determined one. The properties of a link are accessed through the Inquirer Inspector, which is a floating window.</p>
+
+<p><b>Listen Chance:</b> The chance that the link is used to ask whether or not <i>p</i> each time step.</p>
+
+<p><b>Threshold:</b> When above 0.5, the least degree of belief in <i>p</i> the source must have, in order to claim that <i>p</i>. When below 0.5, the highest degree of belief in <i>p</i> the source can have, in order to falsely claim that <i>p.</i> If set to exactly 0.5, the inquirer's decision of whether to say <i>p</i> or not-<i>p</i>will be purely random.</p>
+
+<p><b>New Evidence Requirement:</b> What kind of <i>new</i> evidence the source of this link must have received since the link was last used in order to use it again:
+
+<table border = 0>
+<tr><td align=right><b><i>None:</i></b> </td><td>No new evidence is required; source can always say what she wishes, even if she has received no new evidence.</td></tr>
+
+<tr><td align=right><b><i>Inquiry:</i></b> </td><td>Source must have received some result from her own inquiry since she communicated over this link last in order to use it.</td></tr>
+
+<tr><td align=right><b><i>Any:</i></b> </td><td>Source must have received either some result from her own inquiry, or information from one of her other sources (excluding the destination inquirer of the link) since she communicated over this link last in order to use it.</td></tr>
+</table>
+
+There is also a check-box for controlling how to handle the prior beliefs (i.e. those the inquirer starts with):
+
+
+<table border = 0>
+<tr><td align=right><b><i>Treat Prior as Fulfilling Requirement:</i></b></td><td> If ticked, the <i>first</i> instance of communication over this link is exempted from the "new evidence" requirement. This in effect allows the source to communicate just based on her prior.</td></tr>
+</table>
+</p>
+
+<p><b>Trust:</b> The trust function that describes how much the inquirer trusts the source. Clicking it allows the user to set it to an arbitrarily specified <a href="randomdistributions.htm">probability distribution</a>. A check box allows switching the inquirer's update of trust in view of the information received on or off.</p>
+
+<p><b>Is Template:</b> If on, this link is a template rather than a concrete link. The template's properties are set through the  <a href="simulationparameters.htm">simulation parameters</a> dialog accessible through the <b>Parameters</b> button</p>
+
+
+<br><br><br><br><br><br>
+<hr>
+<a href="index.htm">Back to Start Page</a>
+</body>
+</html>
