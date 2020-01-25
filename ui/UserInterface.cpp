@@ -2772,20 +2772,20 @@ preferences menu.");
         societyWindow->groupToolBar->end();
       } // Fl_Group* societyWindow->groupToolBar
       { Fl_Group* o = new Fl_Group(105, 28, 795, 41);
-        { societyWindow->outputNumInquirers = new Fl_Value_Output(390, 32, 45, 24, "Inquirers");
+        { societyWindow->outputNumInquirers = new Fl_Value_Output(390, 32, 55, 24, "Inquirers");
           societyWindow->outputNumInquirers->tooltip("Number of inquirers in society");
           societyWindow->outputNumInquirers->color(FL_BACKGROUND2_COLOR);
           societyWindow->outputNumInquirers->selection_color(FL_BACKGROUND2_COLOR);
           societyWindow->outputNumInquirers->labeltype(FL_ENGRAVED_LABEL);
           societyWindow->outputNumInquirers->labelfont(2);
         } // Fl_Value_Output* societyWindow->outputNumInquirers
-        { societyWindow->outputNumLinks = new Fl_Value_Output(485, 32, 50, 24, "Links");
+        { societyWindow->outputNumLinks = new Fl_Value_Output(495, 32, 65, 24, "Links");
           societyWindow->outputNumLinks->tooltip("Number of links in society");
           societyWindow->outputNumLinks->color(FL_BACKGROUND2_COLOR);
           societyWindow->outputNumLinks->labeltype(FL_ENGRAVED_LABEL);
           societyWindow->outputNumLinks->labelfont(2);
         } // Fl_Value_Output* societyWindow->outputNumLinks
-        { Fl_Check_Button* o = new Fl_Check_Button(635, 29, 25, 30, "Show Inquirer Numbers");
+        { Fl_Check_Button* o = new Fl_Check_Button(660, 29, 25, 30, "Show Inquirer Numbers");
           o->tooltip("Toggle whether to show numbers of inquires, and not just their names");
           o->down_box(FL_DOWN_BOX);
           o->labeltype(FL_ENGRAVED_LABEL);
@@ -2830,7 +2830,7 @@ preferences menu.");
           societyWindow->buttonZoomToFit->labelsize(11);
           societyWindow->buttonZoomToFit->callback((Fl_Callback*)cb_societyWindow7);
         } // Fl_Button* societyWindow->buttonZoomToFit
-        { societyWindow->buttonDegrees = new Fl_Button(540, 32, 70, 24, "Degrees...");
+        { societyWindow->buttonDegrees = new Fl_Button(570, 32, 70, 24, "Degrees...");
           societyWindow->buttonDegrees->labeltype(FL_ENGRAVED_LABEL);
           societyWindow->buttonDegrees->labelsize(12);
           societyWindow->buttonDegrees->callback((Fl_Callback*)cb_societyWindow8);

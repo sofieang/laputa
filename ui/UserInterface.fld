@@ -7,7 +7,7 @@ class UserInterface {open
   Function {make_windows()} {open return_type void
   } {
     Fl_Window societyWindow {
-      label Society open
+      label Society open selected
       xywh {510 199 978 759} type Double align 80 resizable
       class SocietyWindow size_range {600 496 0 0} visible
     } {
@@ -241,17 +241,17 @@ societyWindow->view->updateStatistics();}
         } {
           Fl_Value_Output {societyWindow->outputNumInquirers} {
             label Inquirers
-            tooltip {Number of inquirers in society} xywh {390 32 45 24} color 7 selection_color 7 labeltype ENGRAVED_LABEL labelfont 2
+            tooltip {Number of inquirers in society} xywh {390 32 55 24} color 7 selection_color 7 labeltype ENGRAVED_LABEL labelfont 2
           }
           Fl_Value_Output {societyWindow->outputNumLinks} {
             label Links
-            tooltip {Number of links in society} xywh {485 32 50 24} color 7 labeltype ENGRAVED_LABEL labelfont 2
+            tooltip {Number of links in society} xywh {495 32 65 24} color 7 labeltype ENGRAVED_LABEL labelfont 2
           }
           Fl_Check_Button {} {
             label {Show Inquirer Numbers}
             callback {societyWindow->view->setShowInqNumbers(((Fl_Check_Button*)o)->value());
 societyWindow->view->redraw();}
-            tooltip {Toggle whether to show numbers of inquires, and not just their names} xywh {635 29 25 30} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            tooltip {Toggle whether to show numbers of inquires, and not just their names} xywh {660 29 25 30} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
           }
           Fl_Value_Input {societyWindow->inputZoom} {
             label Zoom
@@ -286,7 +286,7 @@ societyWindow->view->redraw();}
             label {Degrees...}
             callback {curSociety->calculateDegrees();
 societyWindow->showDialog(DIALOG_DEGREE_DISTRIBUTION, curSociety->degrees);}
-            xywh {540 32 70 24} labeltype ENGRAVED_LABEL labelsize 12
+            xywh {570 32 70 24} labeltype ENGRAVED_LABEL labelsize 12
           }
         }
       }
@@ -3078,7 +3078,7 @@ else {
       }
     }
     Fl_Window exportTopologyWindow {
-      label {Export Topology} open selected
+      label {Export Topology} open
       xywh {1045 371 260 249} type Double box UP_BOX align 65
       class ExportTopologyWindow modal noborder size_range {260 249 260 249} visible
     } {

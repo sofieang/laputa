@@ -14,21 +14,21 @@
 
 class Amount {
 public:
-	Amount(void) : upper(.5), lower(.5) {}
+	Amount(void) : inverse(.5), value(.5) {}
 	Amount(amt_type val) {
 		assert(val >= 0 && val <= 1.0);
-		upper = 1.0 - val;
-		lower = val;
+		inverse = 1.0 - val;
+		value = val;
 	}
 	Amount(const Amount& val) {
-		upper = val.upper;
-		lower = val.lower;
+		inverse = val.inverse;
+		value = val.value;
 	}
 
 	// assignment
 	inline Amount operator=(const Amount val) {
-		upper = val.upper;
-		lower = val.lower;
+		inverse = val.inverse;
+		value = val.value;
 		return *this;
 	}
 	inline Amount operator=(t_float val) {
@@ -38,57 +38,70 @@ public:
 
 	// access the value as t_float
 	inline amt_type v(void) const {
-		return 0.5 + 0.5 * (lower - upper);
+		return 0.5 + 0.5 * (value - inverse);
 	}
 
 	inline void set(amt_type val) {
 		assert(val >= 0 && val <= 1.0);
-		upper = 1.0 - val;
-		lower = val;
+		inverse = 1.0 - val;
+		value = val;
 	}
 
 	// do 1 - value
 	inline Amount inverted(void) const {
 		Amount v;
-		v.upper = lower;
-		v.lower = upper;
+		v.inverse = value;
+		v.value = inverse;
 		return v;
 	}
 
 	// operators
 	inline Amount operator+=(const Amount val) {
-		lower += val.lower;
-		upper += val.upper - 1.0;
-		assert(lower >= 0 && lower <= 1.0 && upper >= 0 && upper <= 1.0);
+		value += val.value;
+		inverse += val.inverse - 1.0;
+		assert(value >= 0 && value <= 1.0 && inverse >= 0 && inverse <= 1.0);
 		return *this;
 	}
 
 	inline Amount operator-=(const Amount val) {
-		lower -= val.lower;
-		upper -= val.upper - 1.0;
-		assert(lower >= 0 && lower <= 1.0 && upper >= 0 && upper <= 1.0);
+		value -= val.value;
+		inverse -= val.inverse - 1.0;
+		assert(value >= 0 && value <= 1.0 && inverse >= 0 && inverse <= 1.0);
 		return *this;
 	}
 
 	inline Amount operator*=(const Amount val) {
-		lower *= val.lower;
-		upper = upper + val.upper - upper * val.upper;
-		assert(lower >= 0 && lower <= 1.0 && upper >= 0 && upper <= 1.0);
+		value *= val.value;
+		inverse = inverse + val.inverse - inverse * val.inverse;
+		assert(value >= 0 && value <= 1.0 && inverse >= 0 && inverse <= 1.0);
 		return *this;
 	}
 
 	inline Amount operator/=(const Amount val) {
-		lower /= val.lower;
-		upper = (upper - val.upper) / (1.0 - val.upper);
-		assert(lower >= 0 && lower <= 1.0 && upper >= 0 && upper <= 1.0);
+		if (val.value > 0.5) {
+			value /= val.value;
+			inverse = (inverse - val.inverse) / (1.0 - val.inverse);
+		}
+		else {
+			inverse = (inverse - val.inverse) / (1.0 - val.inverse);
+			value = 1.0 - inverse;
+		}
+		assert(value >= 0 && value <= 1.0 && inverse >= 0 && inverse <= 1.0);
 		return *this;
 	}
 
 	// function to compute this / (this + val)
 	inline Amount dividedByAdded(Amount val) const {
 		Amount amt;
-		amt.lower = lower / (lower + val.lower);
-		amt.upper = (1.0 - val.upper) / (2.0 - upper - val.upper);
+		if (inverse + val.inverse < 1.0) {
+			amt.inverse = (1.0 - val.inverse) / (2.0 - inverse - val.inverse);
+			amt.value = 1.0 - amt.inverse;
+		}
+		else {
+			amt.value = value / (value + val.value);
+			amt.inverse = 1.0 - amt.value;
+		}
+		assert(amt.value >= 0 && amt.value <= 1.0 && amt.inverse >= 0 && amt.inverse <= 1.0);
 		return amt;
 	}
 
@@ -102,8 +115,8 @@ public:
 
 
 private:
-	amt_type upper;			// 1 - value
-	amt_type lower;			// value
+	amt_type inverse;		// 1 - value
+	amt_type value;			// value
 };
 
 // binary operators
@@ -130,25 +143,25 @@ inline Amount operator/(const Amount amt1, const Amount amt2) {
 
 // comparison
 inline bool operator==(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper == rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse == rhs.value - rhs.inverse;
 }
 inline bool operator!=(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper != rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse != rhs.value - rhs.inverse;
 }
 inline bool operator<(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper < rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse < rhs.value - rhs.inverse;
 }
 
 inline bool operator>(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper > rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse > rhs.value - rhs.inverse;
 }
 
 inline bool operator<=(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper <= rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse <= rhs.value - rhs.inverse;
 }
 
 inline bool operator>=(const Amount lhs, const Amount rhs) {
-	return lhs.lower - lhs.upper >= rhs.lower - rhs.upper;
+	return lhs.value - lhs.inverse >= rhs.value - rhs.inverse;
 }
 
 
