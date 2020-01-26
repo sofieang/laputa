@@ -203,6 +203,7 @@ void Simulation::step(t_int nStepsToTake, t_int timePerEValue) {
 	}
 
 	// do we need to update selected inquirers or links?
+	if (this == app->getCurSimulation()) societyWindow->view->redraw();
 	if(societyWindow->view->getSelectedInquirers().size()) inquirerWindow->configure();
 	if(societyWindow->view->getSelectedLinks().size()) linkWindow->configure();
 }

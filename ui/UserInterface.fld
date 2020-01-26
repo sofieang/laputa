@@ -7,16 +7,16 @@ class UserInterface {open
   Function {make_windows()} {open return_type void
   } {
     Fl_Window societyWindow {
-      label Society open selected
-      xywh {510 199 978 759} type Double align 80 resizable
+      label Society open
+      xywh {510 199 1250 765} type Double align 80 resizable
       class SocietyWindow size_range {600 496 0 0} visible
     } {
       Fl_Menu_Bar {societyWindow->menuBar} {open
-        xywh {0 0 995 25} box THIN_UP_BOX
+        xywh {0 0 1250 25} box THIN_UP_BOX
         class Fl_Sys_Menu_Bar
       } {
         Submenu {societyWindow->menuFile} {
-          label File open
+          label File open selected
           xywh {0 0 62 20} labelfont 2
         } {
           MenuItem {} {
@@ -181,12 +181,12 @@ societyWindow->view->updateStatistics();}
         }
       }
       Fl_Box {societyWindow->view} {
-        xywh {6 65 959 680} box DOWN_BOX color 7 resizable
+        xywh {6 65 1224 680} box DOWN_BOX color 7 resizable
         code0 {\#include "UserInterfaceItems.h"}
         class SocietyView
       }
       Fl_Pack {} {open
-        xywh {5 28 895 42} type HORIZONTAL
+        xywh {5 25 1025 45} type HORIZONTAL
       } {
         Fl_Group {societyWindow->groupToolBar} {open
           xywh {5 28 96 34} labeltype NO_LABEL
@@ -237,7 +237,7 @@ societyWindow->view->updateStatistics();}
           }
         }
         Fl_Group {} {open
-          xywh {105 28 795 41}
+          xywh {105 25 925 44}
         } {
           Fl_Value_Output {societyWindow->outputNumInquirers} {
             label Inquirers
@@ -251,7 +251,7 @@ societyWindow->view->updateStatistics();}
             label {Show Inquirer Numbers}
             callback {societyWindow->view->setShowInqNumbers(((Fl_Check_Button*)o)->value());
 societyWindow->view->redraw();}
-            tooltip {Toggle whether to show numbers of inquires, and not just their names} xywh {660 29 25 30} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
+            tooltip {Toggle whether to show numbers of inquires, and not just their names} xywh {655 30 25 30} down_box DOWN_BOX labeltype ENGRAVED_LABEL labelfont 2
           }
           Fl_Value_Input {societyWindow->inputZoom} {
             label Zoom
@@ -288,17 +288,29 @@ societyWindow->view->redraw();}
 societyWindow->showDialog(DIALOG_DEGREE_DISTRIBUTION, curSociety->degrees);}
             xywh {570 32 70 24} labeltype ENGRAVED_LABEL labelsize 12
           }
+          Fl_Check_Button {} {
+            label {Show Inquirer Names}
+            callback {societyWindow->view->setShowInqNames(((Fl_Check_Button*)o)->value());
+societyWindow->view->redraw();}
+            tooltip {Toggle whether to show names of inquirers} xywh {832 30 25 30} down_box DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+          }
+          Fl_Check_Button {} {
+            label {Show Links}
+            callback {societyWindow->view->setShowLinks(((Fl_Check_Button*)o)->value());
+societyWindow->view->redraw();}
+            tooltip {Toggle whether to show links} xywh {996 30 25 30} down_box DOWN_BOX value 1 labeltype ENGRAVED_LABEL labelfont 2
+          }
         }
       }
       Fl_Scrollbar {societyWindow->scrollbarHorizontal} {
         callback {societyWindow->view->setMidpoint(o->value(), societyWindow->scrollbarVertical->value()); 
 societyWindow->view->redraw();}
-        xywh {5 745 960 20} type Horizontal maximum 16384 value 8192
+        xywh {5 745 1225 20} type Horizontal maximum 16384 value 8192
       }
       Fl_Scrollbar {societyWindow->scrollbarVertical} {
         callback {societyWindow->view->setMidpoint(societyWindow->scrollbarHorizontal->value(), o->value()); 
 societyWindow->view->redraw();}
-        xywh {965 65 20 680} maximum 16384 value 8192
+        xywh {1230 65 20 680} maximum 16384 value 8192
       }
     }
     Fl_Window inquirerWindow {

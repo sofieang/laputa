@@ -53,6 +53,8 @@ public:
 
 	// set display properties
 	void setShowInqNumbers(bool on) {showInquirerNumbers = on;}
+	void setShowInqNames(bool on) { showInquirerNames = on; }
+	void setShowLinks(bool on) { showLinks = on; }
 	void setZoom(t_float z);
 	void setZoomToDefault(int direction);
 	void setZoomToFit(void);
@@ -86,6 +88,8 @@ public:
 
 	// display settings
 	bool showInquirerNumbers;
+	bool showInquirerNames;
+	bool showLinks;
 
 	// timer callback for updating selections
 	static void idleCallback(void* v);

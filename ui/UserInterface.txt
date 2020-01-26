@@ -61,6 +61,10 @@ Zoom to 100%
 Fit
 Zoom to fit society in view
 Degrees...
+Show Inquirer Names
+Toggle whether to show names of inquirers
+Show Links
+Toggle whether to show links
 Inquirer
 Name
 Name of inquirer (optional)

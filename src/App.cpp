@@ -284,7 +284,11 @@ void App::openSociety(void) {
 		societyWindow->view->deselectAll();
 
 		// update statistics
-    curSimulation.reset();
+		curSimulation.reset();
+
+		// show society
+		societyWindow->view->setZoomToFit();
+		societyWindow->view->redraw();
 	}
 }
 

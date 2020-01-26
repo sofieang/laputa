@@ -18,7 +18,7 @@ Building on both Windows and Linux uses CMake.
 On Linux:
   mkdir build
   cd build
-  cmake ..
+  cmake -DCMAKE_BUILD_TYPE=Release ..
   make
   sudo make install
 

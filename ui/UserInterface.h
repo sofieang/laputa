@@ -117,6 +117,10 @@ private:
   static void cb_societyWindow7(Fl_Button*, void*);
   inline void cb_societyWindow8_i(Fl_Button*, void*);
   static void cb_societyWindow8(Fl_Button*, void*);
+  inline void cb_Show1_i(Fl_Check_Button*, void*);
+  static void cb_Show1(Fl_Check_Button*, void*);
+  inline void cb_Show2_i(Fl_Check_Button*, void*);
+  static void cb_Show2(Fl_Check_Button*, void*);
   inline void cb_societyWindow9_i(Fl_Scrollbar*, void*);
   static void cb_societyWindow9(Fl_Scrollbar*, void*);
   inline void cb_societyWindowa_i(Fl_Scrollbar*, void*);

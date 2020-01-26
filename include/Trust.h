@@ -64,7 +64,7 @@ public:
 	void update(float belief, bool pTrue);
 
 	// list of values
-	float valueBlock[TRUST_FUNCTION_RESOLUTION + 4];
+	float valueBlock[TRUST_FUNCTION_RESOLUTION + 8];
 	float *values;
 
 	// conversion to XML

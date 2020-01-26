@@ -2,9 +2,7 @@
 #include "App.h"
 #include <FL/fl_draw.H>
 #include <cmath>
-#ifdef _WINDOWS
-#include <xmmintrin.h>
-#endif
+#include <immintrin.h>
 
 //-----------------------------------------------------------------------------------------------------------------------
 
@@ -116,13 +114,16 @@ float TrustFunction::getValue(float pos) {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------
-#ifdef __SSE9__
-// SSE optimised semi-assembler, since this is one of the functions the program spends the most time in
+#ifdef __AVX__
+// AVX optimised semi-assembler, since this is one of the functions the program spends the most time in
 float TrustFunction::expectation(void) {
 	// returns t_integral(r * fn(r)). Calculated by approximating the function to be linear between the points. It must be normalised!
 	__m128 f0, f1, fSlope, rSlope, r0, v1, v2, v3, sum, half, third;
 #ifdef _WINDOWS
 	__declspec(align(16)) static float r0vec[TRUST_FUNCTION_RESOLUTION];
+#endif
+#ifdef __linux__
+	static float r0vec[TRUST_FUNCTION_RESOLUTION] __attribute__((aligned(16)));
 #endif
 #ifdef __APPLE__
 	static float r0vec[TRUST_FUNCTION_RESOLUTION] __attribute__((aligned(16)));
@@ -137,11 +138,6 @@ float TrustFunction::expectation(void) {
 
 	if(!expValid) {
 		// init values
-//#ifdef _WINDOWS
-
-		_mm_prefetch((char const*)r0vec, 0);
-		_mm_prefetch((char const*)values, 0);
-//#endif
 		sum = _mm_setzero_ps();
 		half = _mm_set1_ps(0.5);
 		third = _mm_set1_ps(0.33333333333333333333333);
@@ -215,13 +211,17 @@ float TrustFunction::expectation(void) {
 #endif
 
 //-----------------------------------------------------------------------------------------------------------------------
-// SSE optimised semi-assembler, since this is one of the functions the program spends the most time in
-#ifdef __SSE9__
+// AVX optimised semi-assembler, since this is one of the functions the program spends the most time in
+#ifdef __AVX__
 void TrustFunction::update(float belief, bool pTrue) {
 	__m128 beliefVec, beliefVecInv, r, rInv, dr, vTotalVec, v1, v2, v3;
 #ifdef _WINDOWS
 	__declspec(align(16)) static const float rVec[4] = {0, TRUST_FUNCTION_RESOLUTION_INV, 2 * TRUST_FUNCTION_RESOLUTION_INV, 3 * TRUST_FUNCTION_RESOLUTION_INV};
 	__declspec(align(16)) static const float rVecInv[4] = {1.0 , 1.0 - TRUST_FUNCTION_RESOLUTION_INV, 1.0 - 2 * TRUST_FUNCTION_RESOLUTION_INV, 1.0 - 3 * TRUST_FUNCTION_RESOLUTION_INV};
+#endif
+#ifdef __linux__
+	static const float rVec[4] __attribute((aligned(16))) = {0, TRUST_FUNCTION_RESOLUTION_INV, 2 * TRUST_FUNCTION_RESOLUTION_INV, 3 * TRUST_FUNCTION_RESOLUTION_INV};
+	static const float rVecInv[4] __attribute((aligned(16))) = {1.0 , 1.0 - TRUST_FUNCTION_RESOLUTION_INV, 1.0 - 2 * TRUST_FUNCTION_RESOLUTION_INV, 1.0 - 3 * TRUST_FUNCTION_RESOLUTION_INV};
 #endif
 #ifdef __APPLE__
 	static const float rVec[4] __attribute((aligned(16))) = {0, TRUST_FUNCTION_RESOLUTION_INV, 2 * TRUST_FUNCTION_RESOLUTION_INV, 3 * TRUST_FUNCTION_RESOLUTION_INV};

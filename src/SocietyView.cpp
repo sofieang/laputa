@@ -34,6 +34,8 @@ SocietyView::SocietyView(t_int x, t_int y, t_int w, t_int h, const char *label) 
 	srcInquirer = targetInquirer = INQ_NONE;
 	inquirerDragInProgress = linkDragInProgress = selectionDragInProgress = false;
 	showInquirerNumbers = false;
+	showInquirerNames = true;
+	showLinks = true;
 	zoom = 1.0;
 
 	// install timer
@@ -203,28 +205,30 @@ void SocietyView::draw(void) {
 	t_float yTop = y();
 
 	// Draw links
-	for(LinkIterator l = curSociety->links.begin(); l != curSociety->links.end(); ++l) {
-		int src = l->second.source, tgt = l->second.target;
-		t_float xOffset = 0, yOffset = 0;
-		t_float x0 = xWorkspaceToView(curSociety->people[src].x), y0 = yWorkspaceToView(curSociety->people[src].y);
-		t_float x1 = xWorkspaceToView(curSociety->people[tgt].x), y1 = yWorkspaceToView(curSociety->people[tgt].y);
-		t_float dx = x1 - x0, dy = y1 - y0;
-		t_float d = sqrt(dx * dx + dy * dy);
+	if (showLinks) {
+		for (LinkIterator l = curSociety->links.begin(); l != curSociety->links.end(); ++l) {
+			int src = l->second.source, tgt = l->second.target;
+			t_float xOffset = 0, yOffset = 0;
+			t_float x0 = xWorkspaceToView(curSociety->people[src].x), y0 = yWorkspaceToView(curSociety->people[src].y);
+			t_float x1 = xWorkspaceToView(curSociety->people[tgt].x), y1 = yWorkspaceToView(curSociety->people[tgt].y);
+			t_float dx = x1 - x0, dy = y1 - y0;
+			t_float d = sqrt(dx * dx + dy * dy);
 
-		// offset a bit if there are two arrows
-		if(curSociety->getLink(tgt, src)) {
-			xOffset = -dy / d * 3.0 * zoom;
-			yOffset = dx / d * 3.0 * zoom;
-		}
+			// offset a bit if there are two arrows
+			if (curSociety->getLink(tgt, src)) {
+				xOffset = -dy / d * 3.0 * zoom;
+				yOffset = dx / d * 3.0 * zoom;
+			}
 
-		// draw back arrowhead a bit
-		d -= INQUIRER_CIRCLE_SIZE;
+			// draw back arrowhead a bit
+			d -= INQUIRER_CIRCLE_SIZE;
 
-		// draw the actual links
-		if(d > INQUIRER_CIRCLE_SIZE) {
-			drawLink(xLeft + x0 + xOffset, yTop + y0 + yOffset, xLeft + x1 + xOffset - dx / d * INQUIRER_CIRCLE_SIZE * zoom,
-				yTop + y1 + yOffset - dy / d * INQUIRER_CIRCLE_SIZE * zoom, d, l->second.listenChance,
-				l->second.trust.expectation(), isLinkSelected(src, tgt));
+			// draw the actual links
+			if (d > INQUIRER_CIRCLE_SIZE) {
+				drawLink(xLeft + x0 + xOffset, yTop + y0 + yOffset, xLeft + x1 + xOffset - dx / d * INQUIRER_CIRCLE_SIZE * zoom,
+					yTop + y1 + yOffset - dy / d * INQUIRER_CIRCLE_SIZE * zoom, d, l->second.listenChance,
+					l->second.trust.expectation(), isLinkSelected(src, tgt));
+			}
 		}
 	}
 
@@ -259,7 +263,7 @@ void SocietyView::draw(void) {
 			INQUIRER_CIRCLE_SIZE * zoom);
 
 		// does inquirer have a name?
-		if(curSociety->people[i].name[0]) {
+		if(curSociety->people[i].name[0] && showInquirerNames) {
 			fl_font(FL_HELVETICA | FL_BOLD, 10 * zoom);
 			fl_draw(curSociety->people[i].name, xWorkspaceToView(curSociety->people[i].x) + xLeft - fl_width(curSociety->people[i].name) / 2,
 				yWorkspaceToView(curSociety->people[i].y) + yTop + (INQUIRER_CIRCLE_SIZE + 13) * zoom);
@@ -810,7 +814,8 @@ void IdleCallback(void* v) {
 	selectionColour = 128.0f + 127.0f * sin(t);
 
 	// redraw Society view
-	((SocietyView*)v)->redraw();
+	if(!((SocietyView*)v)->selectedInquirers.empty() || !((SocietyView*)v)->selectedLinks.empty())
+		((SocietyView*)v)->redraw();
 
 	// reinstall callback
 	Fl::repeat_timeout(SELECTION_UPDATE_INTERVAL, IdleCallback, v);

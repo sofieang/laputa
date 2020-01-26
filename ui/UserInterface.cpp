@@ -348,6 +348,22 @@ void UserInterface::cb_societyWindow8(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_societyWindow8_i(o,v);
 }
 
+void UserInterface::cb_Show1_i(Fl_Check_Button* o, void*) {
+  societyWindow->view->setShowInqNames(((Fl_Check_Button*)o)->value());
+societyWindow->view->redraw();
+}
+void UserInterface::cb_Show1(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_Show1_i(o,v);
+}
+
+void UserInterface::cb_Show2_i(Fl_Check_Button* o, void*) {
+  societyWindow->view->setShowLinks(((Fl_Check_Button*)o)->value());
+societyWindow->view->redraw();
+}
+void UserInterface::cb_Show2(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_Show2_i(o,v);
+}
+
 void UserInterface::cb_societyWindow9_i(Fl_Scrollbar* o, void*) {
   societyWindow->view->setMidpoint(o->value(), societyWindow->scrollbarVertical->value()); 
 societyWindow->view->redraw();
@@ -2687,7 +2703,7 @@ void UserInterface::cb_exportTopologyWindow4(Fl_Round_Button* o, void* v) {
 }
 
 void UserInterface::make_windows() {
-  { societyWindow = new SocietyWindow(978, 759, "Society");
+  { societyWindow = new SocietyWindow(1250, 765, "Society");
     societyWindow->box(FL_FLAT_BOX);
     societyWindow->color(FL_BACKGROUND_COLOR);
     societyWindow->selection_color(FL_BACKGROUND_COLOR);
@@ -2698,7 +2714,7 @@ void UserInterface::make_windows() {
     societyWindow->user_data((void*)(this));
     societyWindow->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
     societyWindow->when(FL_WHEN_RELEASE);
-    { societyWindow->menuBar = new Fl_Sys_Menu_Bar(0, 0, 995, 25);
+    { societyWindow->menuBar = new Fl_Sys_Menu_Bar(0, 0, 1250, 25);
       societyWindow->menuBar->box(FL_THIN_UP_BOX);
       societyWindow->menuBar->color(FL_BACKGROUND_COLOR);
       societyWindow->menuBar->selection_color(FL_SELECTION_COLOR);
@@ -2710,7 +2726,7 @@ void UserInterface::make_windows() {
       societyWindow->menuBar->when(FL_WHEN_RELEASE_ALWAYS);
       societyWindow->menuBar->menu(menu_societyWindow);
     } // Fl_Sys_Menu_Bar* societyWindow->menuBar
-    { societyWindow->view = new SocietyView(6, 65, 959, 680);
+    { societyWindow->view = new SocietyView(6, 65, 1224, 680);
       societyWindow->view->box(FL_DOWN_BOX);
       societyWindow->view->color(FL_BACKGROUND2_COLOR);
       societyWindow->view->selection_color(FL_BACKGROUND_COLOR);
@@ -2722,7 +2738,7 @@ void UserInterface::make_windows() {
       societyWindow->view->when(FL_WHEN_RELEASE);
       Fl_Group::current()->resizable(societyWindow->view);
     } // SocietyView* societyWindow->view
-    { Fl_Pack* o = new Fl_Pack(5, 28, 895, 42);
+    { Fl_Pack* o = new Fl_Pack(5, 25, 1025, 45);
       o->type(1);
       { societyWindow->groupToolBar = new Fl_Group(5, 28, 96, 34);
         societyWindow->groupToolBar->labeltype(FL_NO_LABEL);
@@ -2771,7 +2787,7 @@ preferences menu.");
         } // ToolButton* societyWindow->buttonCreateInquirer
         societyWindow->groupToolBar->end();
       } // Fl_Group* societyWindow->groupToolBar
-      { Fl_Group* o = new Fl_Group(105, 28, 795, 41);
+      { Fl_Group* o = new Fl_Group(105, 25, 925, 44);
         { societyWindow->outputNumInquirers = new Fl_Value_Output(390, 32, 55, 24, "Inquirers");
           societyWindow->outputNumInquirers->tooltip("Number of inquirers in society");
           societyWindow->outputNumInquirers->color(FL_BACKGROUND2_COLOR);
@@ -2785,7 +2801,7 @@ preferences menu.");
           societyWindow->outputNumLinks->labeltype(FL_ENGRAVED_LABEL);
           societyWindow->outputNumLinks->labelfont(2);
         } // Fl_Value_Output* societyWindow->outputNumLinks
-        { Fl_Check_Button* o = new Fl_Check_Button(660, 29, 25, 30, "Show Inquirer Numbers");
+        { Fl_Check_Button* o = new Fl_Check_Button(655, 30, 25, 30, "Show Inquirer Numbers");
           o->tooltip("Toggle whether to show numbers of inquires, and not just their names");
           o->down_box(FL_DOWN_BOX);
           o->labeltype(FL_ENGRAVED_LABEL);
@@ -2835,17 +2851,33 @@ preferences menu.");
           societyWindow->buttonDegrees->labelsize(12);
           societyWindow->buttonDegrees->callback((Fl_Callback*)cb_societyWindow8);
         } // Fl_Button* societyWindow->buttonDegrees
+        { Fl_Check_Button* o = new Fl_Check_Button(832, 30, 25, 30, "Show Inquirer Names");
+          o->tooltip("Toggle whether to show names of inquirers");
+          o->down_box(FL_DOWN_BOX);
+          o->value(1);
+          o->labeltype(FL_ENGRAVED_LABEL);
+          o->labelfont(2);
+          o->callback((Fl_Callback*)cb_Show1);
+        } // Fl_Check_Button* o
+        { Fl_Check_Button* o = new Fl_Check_Button(996, 30, 25, 30, "Show Links");
+          o->tooltip("Toggle whether to show links");
+          o->down_box(FL_DOWN_BOX);
+          o->value(1);
+          o->labeltype(FL_ENGRAVED_LABEL);
+          o->labelfont(2);
+          o->callback((Fl_Callback*)cb_Show2);
+        } // Fl_Check_Button* o
         o->end();
       } // Fl_Group* o
       o->end();
     } // Fl_Pack* o
-    { societyWindow->scrollbarHorizontal = new Fl_Scrollbar(5, 745, 960, 20);
+    { societyWindow->scrollbarHorizontal = new Fl_Scrollbar(5, 745, 1225, 20);
       societyWindow->scrollbarHorizontal->type(1);
       societyWindow->scrollbarHorizontal->maximum(16384);
       societyWindow->scrollbarHorizontal->Fl_Slider::value(8192);
       societyWindow->scrollbarHorizontal->callback((Fl_Callback*)cb_societyWindow9);
     } // Fl_Scrollbar* societyWindow->scrollbarHorizontal
-    { societyWindow->scrollbarVertical = new Fl_Scrollbar(965, 65, 20, 680);
+    { societyWindow->scrollbarVertical = new Fl_Scrollbar(1230, 65, 20, 680);
       societyWindow->scrollbarVertical->maximum(16384);
       societyWindow->scrollbarVertical->Fl_Slider::value(8192);
       societyWindow->scrollbarVertical->callback((Fl_Callback*)cb_societyWindowa);

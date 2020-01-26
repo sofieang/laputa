@@ -4,6 +4,7 @@ project(laputa LANGUAGES C CXX VERSION 1.7)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+
 # Set up GSL
 include(ExternalProject)
 ExternalProject_Add(gsl
@@ -34,9 +35,13 @@ ExternalProject_Add(muparserx
 # Create Laputa executable
 if(UNIX)
   add_executable(laputa)
+  set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-mavx")
+  set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-mavx")
 endif(UNIX)
 if(WIN32)
   add_executable(laputa WIN32 ${CMAKE_CURRENT_SOURCE_DIR}/resources/windows/Laputa.rc)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /arch:AVX")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /arch:AVX")
 endif(WIN32)
 add_dependencies(laputa fltk gsl muparserx)
 target_include_directories(laputa PUBLIC
@@ -45,9 +50,12 @@ target_include_directories(laputa PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}/muparserx-prefix/install/include
 )
 
+# Link libraries
 if(UNIX)
   find_library(LIB_dl dl)
+  find_library(LIB_cairo cairo)
   find_library(LIB_freetype freetype)
+  find_library(LIB_fontconfig fontconfig)
   find_library(LIB_fontconfig fontconfig)
   find_library(LIB_X11 X11)
   find_library(LIB_Xrender Xrender)
@@ -98,14 +106,16 @@ endif(WIN32)
 
 # Copy data and docs directories
 if(UNIX)
-file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+  file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif(UNIX)
 if(WIN32)
-file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
-file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
-file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+  file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+  file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+  file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+  file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+  file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo)
+  file(COPY docs DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/RelWithDebInfo)
 endif(WIN32)
 
 # Installation instructions
@@ -122,15 +132,15 @@ if(UNIX)
   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/resources/linux/laputa.png
     DESTINATION /usr/share/icons/hicolor/48x48/apps
   )
-  SET(CPACK_GENERATOR "DEB")
-  SET(CPACK_PACKAGE_NAME "Laputa installer")
-  SET(CPACK_PACKAGE_FILE_NAME "laputa-1.7-installer")
-  SET(CPACK_PACKAGE_DESCRIPTION "Install the Laputa social epistemology environment")
+  set(CPACK_GENERATOR "DEB")
+  set(CPACK_PACKAGE_NAME "Laputa installer")
+  set(CPACK_PACKAGE_FILE_NAME "laputa-1.7-installer")
+  set(CPACK_PACKAGE_DESCRIPTION "Install the Laputa social epistemology environment")
   set(CPACK_DEBIAN_PACKAGE_DEPENDS "dl, freetype, fontconfig, X11, Xrender, Xext, Xfixes, Xcursor, Xft, Xinerama")
-  SET(CPACK_PACKAGE_VERSION_MAJOR 1)
-  SET(CPACK_PACKAGE_VERSION_MINOR 7)
-  SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "SA")
-  INCLUDE(CPack)
+  set(CPACK_PACKAGE_VERSION_MAJOR 1)
+  set(CPACK_PACKAGE_VERSION_MINOR 7)
+  set(CPACK_DEBIAN_PACKAGE_MAINTAINER "SA")
+  include(CPack)
 endif(UNIX)
 
 # Recurse into subdirectories
